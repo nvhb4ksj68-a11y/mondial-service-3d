@@ -94,9 +94,9 @@ function revealLines(el, opts = {}) {
   return gsap.to(spans, {
     y: 0,
     yPercent: 0,
-    duration: 1.05,
-    stagger: 0.09,
-    ease: 'power4.out',
+    duration: 0.9,
+    stagger: 0.08,
+    ease: 'power3.out',
     delay: opts.delay || 0,
     onComplete: () => el.classList.add('lines-in'),
   });
@@ -374,7 +374,7 @@ function revealHero() {
   if (reducedMotion) return;
   const tl = gsap.timeline();
   tl.fromTo(hero.querySelector('.hero__media img'),
-    { scale: 1.12 }, { scale: 1, duration: 2.4, ease: 'power2.out' }, 0);
+    { scale: 1.06 }, { scale: 1, duration: 2, ease: 'power2.out' }, 0);
   tl.add(revealLines(title), 0.15);
   tl.to(hero.querySelectorAll('[data-fade]'),
     { opacity: 1, y: 0, duration: 0.9, stagger: 0.12, ease: 'power3.out' }, 0.55);
@@ -409,7 +409,7 @@ function initCursor() {
 function initMagnetic() {
   if (!finePointer || reducedMotion) return;
   document.querySelectorAll('.magnetic').forEach((el) => {
-    const strength = 12;
+    const strength = 8;
     el.addEventListener('pointermove', (e) => {
       const r = el.getBoundingClientRect();
       const dx = (e.clientX - r.left - r.width / 2) / (r.width / 2);
@@ -417,7 +417,7 @@ function initMagnetic() {
       gsap.to(el, { x: dx * strength, y: dy * strength, duration: 0.4, ease: 'power2.out' });
     });
     el.addEventListener('pointerleave', () => {
-      gsap.to(el, { x: 0, y: 0, duration: 0.7, ease: 'elastic.out(1, 0.45)' });
+      gsap.to(el, { x: 0, y: 0, duration: 0.5, ease: 'power3.out' });
     });
   });
 }
@@ -500,6 +500,15 @@ function initChapters() {
       once: true,
       onEnter: () => revealLines(title),
     });
+
+    // La copy respira con lo scrub: entra, resta, esce (stile pagine prodotto)
+    const copy = chapter.querySelector('.chapter__copy');
+    gsap.timeline({
+      scrollTrigger: { trigger: chapter, start: 'top top', end: 'bottom bottom', scrub: true },
+      defaults: { ease: 'none' },
+    })
+      .fromTo(copy, { autoAlpha: 0, y: 46 }, { autoAlpha: 1, y: 0, duration: 0.12 }, 0.02)
+      .to(copy, { autoAlpha: 0, y: -30, duration: 0.12 }, 0.86);
 
     function tick() {
       requestAnimationFrame(tick);
