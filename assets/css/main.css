@@ -245,7 +245,7 @@ a { color: inherit; }
   overflow: hidden;
   background: var(--ink-990);
 }
-.project__media img, .hero__media img {
+.project__media img, .hero__media img, .hero__media video {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -497,7 +497,7 @@ a { color: inherit; }
   inset: -6% 0;
   z-index: -1;
 }
-.hero__media img { transform-origin: center; }
+.hero__media img, .hero__media video { transform-origin: center; }
 
 .hero__eyebrow {
   font-size: 0.75rem;

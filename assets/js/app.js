@@ -15,6 +15,13 @@ const supportsWebGL = (() => {
 
 if (reducedMotion) document.body.classList.add('no-motion');
 
+// Hero video-first: con "riduci movimento" resta il poster fermo
+const heroVideo = document.getElementById('hero-video');
+if (heroVideo && reducedMotion) {
+  heroVideo.removeAttribute('autoplay');
+  heroVideo.pause();
+}
+
 let webglMod = null;
 async function getWebgl() {
   if (!webglMod) webglMod = await import('./webgl.js');
@@ -373,7 +380,7 @@ function revealHero() {
   const title = hero.querySelector('[data-lines]');
   if (reducedMotion) return;
   const tl = gsap.timeline();
-  tl.fromTo(hero.querySelector('.hero__media img'),
+  tl.fromTo(hero.querySelector('.hero__media video, .hero__media img'),
     { scale: 1.06 }, { scale: 1, duration: 2, ease: 'power2.out' }, 0);
   tl.add(revealLines(title), 0.15);
   tl.to(hero.querySelectorAll('[data-fade]'),

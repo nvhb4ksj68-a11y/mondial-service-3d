@@ -111,7 +111,11 @@
     <!-- ============ HERO ============ -->
     <section class="hero" id="hero" aria-label="Presentazione">
       <div class="hero__media" aria-hidden="true">
-        <img src="assets/img/hero.jpg" alt="" width="1920" height="1080" fetchpriority="high" decoding="async" data-parallax="-8">
+        <video id="hero-video" autoplay muted loop playsinline preload="metadata"
+               poster="assets/img/hero.jpg" width="1920" height="1080" tabindex="-1" data-parallax="-8">
+          <source src="assets/video/hero-loop.mp4" type="video/mp4">
+          <source src="assets/video/hero-loop.webm" type="video/webm">
+        </video>
       </div>
       <div class="hero__inner">
         <p class="hero__eyebrow" data-fade>Impresa di ristrutturazioni · Bologna e provincia</p>
