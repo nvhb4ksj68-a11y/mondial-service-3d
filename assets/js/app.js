@@ -213,6 +213,7 @@ let lenis = null;
 function initLenis() {
   if (reducedMotion || !window.Lenis) return;
   lenis = new Lenis({ lerp: 0.1, wheelMultiplier: 1 });
+  window.__lenis = lenis; // esposto per test/debug
   lenis.on('scroll', ScrollTrigger.update);
   gsap.ticker.add((t) => lenis.raf(t * 1000));
   gsap.ticker.lagSmoothing(0);
@@ -291,7 +292,7 @@ function initScrollFx() {
 
   // Reveal dei titoli fuori dall'hero
   document.querySelectorAll('[data-lines]').forEach((el) => {
-    if (el.closest('.hero')) return;
+    if (el.closest('.hero') || el.closest('.chapter')) return;
     ScrollTrigger.create({
       trigger: el,
       start: 'top 82%',
@@ -433,6 +434,85 @@ async function initLiquid() {
   } catch { /* fallback CSS */ }
 }
 
+/* ============================== CAPITOLI SCROLL-SCRUB ============================== */
+/* Lo scroll guida il tempo del video: il target segue ScrollTrigger, un rAF
+   ammorbidisce i seek (mai più di ~30/s) così il video resta fluido anche
+   su mobile. I file sono ricodificati con keyframe fitti apposta. */
+
+function initChapters() {
+  const chapters = [...document.querySelectorAll('[data-chapter]')];
+  if (!chapters.length) return;
+
+  // Senza motion (o senza dati video) i capitoli restano poster statici
+  const scrubOk = !reducedMotion;
+  if (!scrubOk) {
+    document.body.classList.add('no-scrub');
+    return;
+  }
+
+  chapters.forEach((chapter) => {
+    const video = chapter.querySelector('.chapter__video');
+    const bar = chapter.querySelector('.chapter__progress i');
+    let target = 0;
+    let current = -1;
+    let duration = 0;
+    let failed = false;
+
+    // L'errore di una <source> non risale al <video>: si ascolta l'ultima
+    const lastSource = video.querySelector('source:last-of-type');
+    (lastSource || video).addEventListener('error', () => {
+      failed = true;
+      chapter.classList.add('chapter--novideo');
+    }, { once: true });
+
+    const ready = () => { duration = video.duration || 0; };
+    if (video.readyState >= 1) ready();
+    video.addEventListener('loadedmetadata', ready);
+    video.addEventListener('durationchange', ready);
+
+    // Se la selezione della sorgente si è arenata (es. primo codec rifiutato),
+    // un load() esplicito la riavvia; parte poco prima che il capitolo entri in vista.
+    ScrollTrigger.create({
+      trigger: chapter,
+      start: 'top 130%',
+      once: true,
+      onEnter: () => {
+        if (video.readyState === 0) { try { video.load(); } catch { /* ok */ } }
+      },
+    });
+
+    ScrollTrigger.create({
+      trigger: chapter,
+      start: 'top top',
+      end: 'bottom bottom',
+      scrub: true,
+      onUpdate: (self) => {
+        target = self.progress;
+        if (bar) bar.style.transform = `scaleY(${self.progress.toFixed(3)})`;
+      },
+    });
+
+    // Reveal del titolo alla prima entrata (il resto lo fa il video)
+    const title = chapter.querySelector('[data-lines]');
+    ScrollTrigger.create({
+      trigger: chapter,
+      start: 'top 55%',
+      once: true,
+      onEnter: () => revealLines(title),
+    });
+
+    function tick() {
+      requestAnimationFrame(tick);
+      if (failed || !duration) return;
+      const t = target * Math.max(duration - 0.08, 0);
+      if (Math.abs(t - current) < 0.033) return; // niente seek inutili
+      current = t;
+      try { video.currentTime = t; } catch { /* metadata non pronti */ }
+    }
+    requestAnimationFrame(tick);
+  });
+}
+
 /* ============================== CTA BAR ============================== */
 
 const ctaBar = document.getElementById('cta-bar');
@@ -492,6 +572,7 @@ form.addEventListener('submit', (e) => {
 
   initLenis();
   initScrollFx();
+  initChapters();
   initCursor();
   initMagnetic();
   syncHead();
