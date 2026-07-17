@@ -1,60 +1,70 @@
-# Mondial Service Srl — sito 3D immersivo
+# Mondial Service Srl — sito dark luxury
 
-Ricostruzione in chiave 3D del sito di **Mondial Service Srl**, impresa di ristrutturazioni
-premium attiva a Bologna e provincia. Stack: **HTML + CSS + JavaScript con Three.js**
-(vendorizzato, nessuna build necessaria), mobile-first.
+Sito one-page in stile **dark luxury cinematografico** per Mondial Service Srl,
+impresa di ristrutturazioni attiva a Bologna e provincia.
+Stack: **HTML + CSS + JS** con Three.js, GSAP/ScrollTrigger e Lenis (tutto vendorizzato,
+nessuna build necessaria). Mobile-first.
 
 ## Anteprima locale
 
-Serve un server statico (i moduli ES non funzionano da `file://`):
+Serve un server statico (i moduli ES non girano da `file://`):
 
 ```bash
-cd mondial-service-3d
-python3 -m http.server 8000
+python3 -m http.server 8000    # dalla root del progetto
 # poi apri http://localhost:8000
 ```
 
-oppure `npx serve .` se preferisci Node.
+In alternativa apri `anteprima-standalone.html` con doppio click: è il sito intero
+impacchettato in un unico file, senza bisogno di server.
 
-## Cosa c'è dentro
+## Struttura
 
 | Percorso | Contenuto |
 |---|---|
-| `index.html` | Pagina unica: intro, hero, servizi, portfolio, recensione, contatti, footer |
-| `assets/css/main.css` | Design system (palette navy `#0F1B2E` / oro `#F5A623` / beige) e layout |
-| `assets/js/main.js` | Intro, navbar, reveal, tilt 3D delle card, galleria 3D, form WhatsApp, parallax |
-| `assets/js/scene.js` | Scene Three.js: porta che si apre (intro) e fondale architettonico dell'hero |
-| `assets/vendor/` | `three.module.min.js`, `gsap.min.js`, `ScrollTrigger.min.js` (self-hosted) |
-| `assets/fonts/` | Playfair Display + Inter (woff2 variabili, self-hosted) |
-| `assets/img/portfolio/` | 7 tavole segnaposto da sostituire con le foto reali |
-| `assets/video/` | Qui va il video reale `intro-porta.mp4` (vedi il README nella cartella) |
-| `design-system/` | Design system generato dalla skill ui-ux-pro-max |
+| `index.html` | Pagina unica: preloader, intro porta, hero, servizi, portfolio, recensione, contatti, footer |
+| `assets/css/main.css` | Design system dark luxury (navy `#0A1220`, oro `#F5A623` chirurgico, beige raro) |
+| `assets/js/app.js` | Preloader, intro, Lenis, reveal a maschere, parallax, cursore custom, magnetic, form |
+| `assets/js/webgl.js` | Three.js: porta 3D dell'intro + galleria a distorsione liquida (un solo renderer) |
+| `assets/vendor/` | three, gsap, ScrollTrigger, lenis (self-hosted) |
+| `assets/fonts/` | Bodoni Moda (display) + Jost (testo), woff2 variabili self-hosted |
+| `assets/img/` | `logo.png` (ufficiale), `hero.jpg`, `portfolio-1..7.jpg` (segnaposto da sovrascrivere) |
+| `assets/video/` | Qui va il video reale `intro-porta.mp4` |
 | `CONTENUTI-DA-SOSTITUIRE.md` | **Leggilo**: elenco dei contenuti reali da reinserire |
 
-## Caratteristiche 3D
+## Art direction
 
-- **Intro**: video della porta che si apre (se presente in `assets/video/intro-porta.mp4`),
-  altrimenti porta 3D animata in Three.js; pulsante **Salta intro** sempre visibile,
-  timeout di sicurezza a 9 s, mostrata una sola volta per sessione.
-- **Hero**: scena Three.js con volumi architettonici in wireframe dorato e pulviscolo,
-  parallax legato a puntatore/touch e allo scroll.
-- **Card servizi**: tilt 3D con riflesso dorato che segue il puntatore (anche al tocco).
-- **Portfolio**: galleria coverflow 3D con trascinamento/swipe, frecce, tastiera e
-  indicatori; annunci `aria-live` per gli screen reader.
-- **Scroll**: parallax di profondità tra le sezioni con GSAP ScrollTrigger (`scrub`).
+- Palette: navy quasi nero `#0A1220`, oro `#F5A623` usato solo per linee sottili e dettagli,
+  beige caldo (`#EFE7D8`) solo nella sezione recensione.
+- Tipografia (skill ui-ux-pro-max, "Exaggerated Minimalism"): **Bodoni Moda** enorme per i
+  titoli, **Jost** per testi e label maiuscole a tracking largo.
+- Header: solo wordmark testuale "MONDIAL SERVICE srl"; il logo completo col globo vive
+  nel footer, piccolo, su riquadro bianco.
+- Una sola cosa protagonista per schermata, molto vuoto, poco testo.
+
+## Motion e 3D
+
+- **Preloader** cinematografico: contatore %, wordmark rivelato, uscita a tendina.
+- **Intro**: video della porta (`assets/video/intro-porta.mp4`, rilevato da solo) o porta 3D
+  Three.js come fallback; "Salta intro" sempre visibile, timeout di sicurezza, una volta per sessione.
+- **Lenis** smooth scroll ovunque (disattivato con `prefers-reduced-motion`).
+- **GSAP + ScrollTrigger**: titoli rivelati riga per riga con maschere, parallax multi-velocità,
+  pannelli servizi impilati (sticky), clip-path sulla sezione chiara, colore di fondo che
+  cambia progressivamente tra le sezioni.
+- **WebGL** sulle immagini del portfolio: distorsione liquida al passaggio del puntatore
+  (desktop); su mobile/WebGL assente restano le `<img>` native con lo stesso trattamento CSS.
+- **Cursore custom** + **magnetic buttons** solo su puntatori fini.
 
 ## Performance e accessibilità
 
-- Un solo `WebGLRenderer` per la pagina, DPR limitato a 2, rendering in pausa quando
-  l'hero non è visibile o la scheda è in background.
-- **Fallback senza WebGL**: fondale sfumato CSS + intro solo video (o nessuna intro).
-- `prefers-reduced-motion`: intro saltata, tilt/parallax disattivati.
-- Lazy loading di immagini e mappa (caricata solo su richiesta), font self-hosted
-  con `font-display: swap`, video `preload="none"`.
-- Contrasto AA sulla palette, focus visibili, touch target ≥ 44 px, skip link.
-- SEO: meta description/keywords, geo tag Bologna, Open Graph, JSON-LD `HomeAndConstructionBusiness`.
+- Un solo `WebGLRenderer` (intro → galleria), DPR ≤ 1.75, texture caricate solo vicino
+  al viewport, rendering fermo quando non serve.
+- Lazy loading immagini, font self-hosted `font-display: swap`, video `preload="none"`.
+- Fallback completi: senza WebGL o con "riduci movimento" il sito è identico nei contenuti.
+- Contrasto AA verificato su tutte le coppie, focus visibili, touch target ≥ 44 px, skip link.
+- SEO: meta + Open Graph + JSON-LD `HomeAndConstructionBusiness` (riferimento: Bologna e provincia).
 
-## Contatti cablati nel sito
+## Contatti cablati
 
 - Telefono: `tel:+393297003558` (mostrato come 329 700 3558)
-- WhatsApp: `https://wa.me/393297003558` (il form preventivo apre WhatsApp con il messaggio pronto)
+- WhatsApp: `https://wa.me/393297003558` (il form apre WhatsApp col messaggio pronto)
+- Sede: Mordano (BO) — riferimento commerciale sempre "Bologna e provincia"
