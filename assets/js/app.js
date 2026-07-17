@@ -461,7 +461,6 @@ function initChapters() {
     const video = chapter.querySelector('.chapter__video');
     const bar = chapter.querySelector('.chapter__progress i');
     let target = 0;
-    let current = -1;
     let duration = 0;
     let failed = false;
 
@@ -519,10 +518,11 @@ function initChapters() {
 
     function tick() {
       requestAnimationFrame(tick);
-      if (failed || !duration) return;
+      if (failed || !duration || video.seeking) return; // un seek alla volta
       const t = target * Math.max(duration - 0.08, 0);
-      if (Math.abs(t - current) < 0.033) return; // niente seek inutili
-      current = t;
+      // La verità è la posizione reale del video: se qualcosa lo resetta
+      // (es. un load() di recupero), al giro dopo si riallinea da solo.
+      if (Math.abs(t - video.currentTime) < 0.033) return;
       try { video.currentTime = t; } catch { /* metadata non pronti */ }
     }
     requestAnimationFrame(tick);

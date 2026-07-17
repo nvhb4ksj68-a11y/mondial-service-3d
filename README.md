@@ -10,9 +10,13 @@ nessuna build necessaria). Mobile-first.
 Serve un server statico (i moduli ES non girano da `file://`):
 
 ```bash
-python3 -m http.server 8000    # dalla root del progetto
+npx http-server -p 8000        # dalla root del progetto
 # poi apri http://localhost:8000
 ```
+
+> Nota: serve un server con supporto alle richieste **HTTP Range** (qualsiasi hosting
+> reale ce l'ha: Vercel, GitHub Pages, nginx…). `python3 -m http.server` NON le supporta
+> e i video guidati dallo scroll resterebbero fermi al primo fotogramma.
 
 In alternativa apri `anteprima-standalone.html` con doppio click: è il sito intero
 impacchettato in un unico file, senza bisogno di server.

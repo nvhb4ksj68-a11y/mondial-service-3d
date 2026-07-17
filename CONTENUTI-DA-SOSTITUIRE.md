@@ -3,17 +3,18 @@
 Il sito originale (`https://mondialservice.readdy.co`) non era raggiungibile dall'ambiente
 di sviluppo (dominio bloccato dalla policy di rete). Questi contenuti sono **segnaposto**:
 
-## 1. Video intro (porta che si apre)
-- Copia il video del sito attuale in `assets/video/intro-porta.mp4`.
-- Finché manca, l'intro usa la porta 3D animata (Three.js) con lo stesso pulsante "Salta intro".
-- Dettagli in `assets/video/README.md`.
+## 1. Video (✅ fatti — render AI via Kling 3.0)
+- `intro-porta` (porta che si apre), `hero-loop` (walkthrough 15 s) e le tre scene
+  dei capitoli (`scene-living/cucina/bagno`) sono render AI fotorealistici già montati.
+- Per sostituirli con riprese reali basta sovrascrivere i file mp4+webm in `assets/video/`
+  (per le scene capitolo ricodificare con keyframe fitti: `ffmpeg … -g 8`).
 
-## 2. Foto (hero + 7 progetti)
-- Ora in `assets/img/` ci sono render segnaposto in stile dark luxury con i **nomi definitivi**:
-  `hero.jpg`, `portfolio-1.jpg` … `portfolio-7.jpg` (≈1600×1000, il trattamento
-  scuro/caldo/vignettato viene applicato da CSS e shader, quindi vanno bene anche foto normali).
-- Per sostituirli basta **sovrascrivere i file** con lo stesso nome: nessuna modifica al codice.
-- Verifica poi che titoli e tag dei progetti in `index.html` corrispondano ai lavori reali.
+## 2. Foto portfolio
+- `portfolio-1…4.jpg` sono fotogrammi dei render AI; `portfolio-5/6/7.jpg` sono ancora
+  tavole segnaposto. Sostituiscili con foto reali dei lavori quando disponibili
+  (stesso nome file, ≈1600×1000): il trattamento scuro/caldo lo applica il sito.
+- ⚠️ I render AI mostrano interni *verosimili ma non reali*: per correttezza verso i
+  clienti, appena possibile usare foto vere dei cantieri nel portfolio.
 
 ## 3. Recensione Google
 - In `index.html`, sezione `#recensioni` (commento `TODO`): il testo tra «…» è segnaposto.
