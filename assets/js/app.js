@@ -21,6 +21,12 @@ if (heroVideo && reducedMotion) {
   heroVideo.removeAttribute('autoplay');
   heroVideo.pause();
 }
+// Se l'autoplay è stato negato (risparmio energetico iOS), riprova al primo tocco
+if (heroVideo && !reducedMotion) {
+  const resume = () => { if (heroVideo.paused) heroVideo.play().catch(() => {}); };
+  window.addEventListener('pointerdown', resume, { once: true, passive: true });
+  window.addEventListener('touchstart', resume, { once: true, passive: true });
+}
 
 let webglMod = null;
 async function getWebgl() {
@@ -188,6 +194,18 @@ async function runIntro() {
     window.setTimeout(finish, 9500); // l'intro non blocca mai la pagina
 
     (async () => {
+      const doorFallback = async () => {
+        intro.classList.remove('intro--video');
+        if (supportsWebGL) {
+          try {
+            const m = await getWebgl();
+            m.playDoorIntro(document.getElementById('intro-canvas-slot'), finish);
+            return;
+          } catch { /* niente WebGL */ }
+        }
+        window.setTimeout(finish, 1200);
+      };
+
       let hasVideo = false;
       try {
         const res = await fetch('assets/video/intro-porta.mp4', { method: 'HEAD' });
@@ -199,17 +217,15 @@ async function runIntro() {
         introVideo.preload = 'auto';
         introVideo.addEventListener('ended', finish);
         introVideo.addEventListener('error', finish);
-        try { await introVideo.play(); } catch { finish(); }
+        try {
+          await introVideo.play();
+        } catch {
+          // Autoplay negato (es. risparmio energetico iOS): porta 3D al suo posto
+          doorFallback();
+        }
         return;
       }
-      if (supportsWebGL) {
-        try {
-          const m = await getWebgl();
-          m.playDoorIntro(document.getElementById('intro-canvas-slot'), finish);
-          return;
-        } catch { /* niente WebGL: chiudi subito */ }
-      }
-      window.setTimeout(finish, 1200);
+      doorFallback();
     })();
   });
 }
