@@ -2,7 +2,7 @@ name: Deploy su GitHub Pages
 
 on:
   push:
-    branches: [claude/mondial-service-3d-site-fkpie0]
+    branches: [main]
   workflow_dispatch:
 
 permissions:
