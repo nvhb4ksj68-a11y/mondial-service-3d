@@ -266,8 +266,12 @@ const head = document.getElementById('site-head');
 const burger = document.getElementById('burger');
 const menu = document.getElementById('menu');
 
+let lastScrollY = 0;
 function syncHead() {
-  head.classList.toggle('is-scrolled', window.scrollY > 40);
+  const y = window.scrollY;
+  head.classList.toggle('is-scrolled', y > 40);
+  head.classList.toggle('is-hidden', y > 200 && y > lastScrollY && menu.hidden);
+  lastScrollY = y;
 }
 window.addEventListener('scroll', syncHead, { passive: true });
 
@@ -396,11 +400,76 @@ function revealHero() {
   const title = hero.querySelector('[data-lines]');
   if (reducedMotion) return;
   const tl = gsap.timeline();
-  tl.fromTo(hero.querySelector('.hero__media video, .hero__media img'),
+  tl.fromTo(hero.querySelector('.hero__media video'),
     { scale: 1.06 }, { scale: 1, duration: 2, ease: 'power2.out' }, 0);
   tl.add(revealLines(title), 0.15);
   tl.to(hero.querySelectorAll('[data-fade]'),
     { opacity: 1, y: 0, duration: 0.9, stagger: 0.12, ease: 'power3.out' }, 0.55);
+}
+
+/* ============================== HERO SCRUB ============================== */
+/* Da fermo il walkthrough scorre da solo (autoplay); appena scorri, la
+   camera passa al dito: lo scroll guida il tempo del video e i testi
+   scivolano via a velocità diverse. Nessuna dipendenza dall'autoplay. */
+
+function initHeroScrub() {
+  if (reducedMotion || !heroVideo) {
+    document.body.classList.add('no-scrub');
+    return;
+  }
+  const hero = document.querySelector('.hero');
+  const bar = document.getElementById('hero-progress');
+  let target = 0;
+  let scrubbing = false;
+  let duration = 0;
+  const ready = () => { duration = heroVideo.duration || 0; };
+  if (heroVideo.readyState >= 1) ready();
+  heroVideo.addEventListener('loadedmetadata', ready);
+  heroVideo.addEventListener('durationchange', ready);
+
+  // I livelli del testo scivolano via a velocità diverse (parallax multi-strato)
+  document.querySelectorAll('[data-hero-layer]').forEach((el) => {
+    const speed = parseFloat(el.dataset.heroLayer) || 1;
+    gsap.to(el, {
+      yPercent: -90 * speed,
+      autoAlpha: 0,
+      ease: 'none',
+      scrollTrigger: { trigger: hero, start: 'top top', end: '55% bottom', scrub: true },
+    });
+  });
+  gsap.to('.hero__watermark', {
+    autoAlpha: 0,
+    ease: 'none',
+    scrollTrigger: { trigger: hero, start: 'top top', end: '40% bottom', scrub: true },
+  });
+
+  ScrollTrigger.create({
+    trigger: hero,
+    start: 'top top',
+    end: 'bottom bottom',
+    scrub: true,
+    onUpdate: (self) => {
+      target = self.progress;
+      scrubbing = self.progress > 0.004;
+      if (bar) bar.style.transform = `scaleX(${self.progress.toFixed(3)})`;
+    },
+  });
+
+  function tick() {
+    requestAnimationFrame(tick);
+    if (!duration) return;
+    if (!scrubbing) {
+      // In cima: il video torna a scorrere da solo
+      if (heroVideo.paused && !document.hidden) heroVideo.play().catch(() => {});
+      return;
+    }
+    if (!heroVideo.paused) heroVideo.pause();
+    if (heroVideo.seeking) return;
+    const t = target * Math.max(duration - 0.08, 0);
+    if (Math.abs(t - heroVideo.currentTime) < 0.033) return;
+    try { heroVideo.currentTime = t; } catch { /* metadata in arrivo */ }
+  }
+  requestAnimationFrame(tick);
 }
 
 /* ============================== CURSORE + MAGNETIC ============================== */
@@ -604,6 +673,7 @@ form.addEventListener('submit', (e) => {
 
   initLenis();
   initScrollFx();
+  initHeroScrub();
   initChapters();
   initCursor();
   initMagnetic();

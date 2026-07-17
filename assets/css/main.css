@@ -362,6 +362,13 @@ a { color: inherit; }
               backdrop-filter var(--t-slow) var(--ease), border-color var(--t-slow) var(--ease);
   border-bottom: 1px solid transparent;
 }
+.site-head.is-hidden { transform: translateY(-100%); }
+.site-head {
+  will-change: transform;
+  transition: height var(--t-slow) var(--ease), background-color var(--t-slow) var(--ease),
+              backdrop-filter var(--t-slow) var(--ease), border-color var(--t-slow) var(--ease),
+              transform var(--t-slow) var(--ease);
+}
 .site-head.is-scrolled {
   height: 64px;
   background: rgba(6, 11, 20, 0.55);
@@ -484,20 +491,34 @@ a { color: inherit; }
 /* ==========================================================================
    Hero
    ========================================================================== */
-.hero {
-  position: relative;
-  min-height: 100svh;
+.hero { height: 300vh; }
+.no-motion .hero, .no-scrub .hero { height: auto; }
+
+.hero__stage {
+  position: sticky;
+  top: 0;
+  height: 100svh;
   display: grid;
   align-content: center;
-  padding: calc(var(--head-h) + 6vh) var(--gutter) 14vh;
+  padding: calc(var(--head-h) + 2vh) var(--gutter) 12vh;
   overflow: clip;
 }
+.no-motion .hero__stage, .no-scrub .hero__stage { position: relative; }
+
 .hero__media {
   position: absolute;
-  inset: -6% 0;
-  z-index: -1;
+  inset: 0;
+  z-index: -2;
 }
-.hero__media img, .hero__media video { transform-origin: center; }
+.hero__shade {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(130% 100% at 50% 40%, transparent 50%, rgba(4, 8, 16, 0.55) 100%),
+    linear-gradient(180deg, rgba(6, 11, 20, 0.5), transparent 35%, transparent 60%, rgba(6, 11, 20, 0.72));
+}
 
 .hero__eyebrow {
   font-size: 0.75rem;
@@ -513,6 +534,7 @@ a { color: inherit; }
   color: var(--white);
   max-width: 12ch;
   margin-bottom: clamp(1.5rem, 4vh, 3rem);
+  text-shadow: 0 2px 40px rgba(4, 8, 16, 0.55);
 }
 .hero__payoff {
   font-size: clamp(1.1rem, 2.4vw, 1.4rem);
@@ -520,12 +542,35 @@ a { color: inherit; }
   letter-spacing: 0;
   color: var(--white-dim);
   margin-bottom: clamp(2rem, 5vh, 3.5rem);
+  text-shadow: 0 1px 20px rgba(4, 8, 16, 0.6);
 }
 .hero__actions {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: 1.2rem 3rem;
+}
+
+/* Wordmark gigante in outline che scivola sul fondo */
+.hero__watermark {
+  position: absolute;
+  left: 0; right: 0;
+  bottom: 9vh;
+  display: flex;
+  white-space: nowrap;
+  pointer-events: none;
+  font: 700 clamp(4rem, 12vw, 9rem)/1 var(--serif);
+  letter-spacing: -0.02em;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(233, 238, 246, 0.14);
+  z-index: -1;
+}
+.hero__watermark span {
+  animation: ticker-slide 46s linear infinite;
+}
+@keyframes ticker-slide {
+  from { transform: translateX(0); }
+  to { transform: translateX(-100%); }
 }
 
 .hero__foot {
@@ -553,8 +598,39 @@ a { color: inherit; }
   55% { transform: scaleY(1); transform-origin: bottom; }
   100% { transform: scaleY(0); transform-origin: bottom; }
 }
-.hero__foot-note { display: none; }
-@media (min-width: 760px) { .hero__foot-note { display: block; } }
+.hero__progress {
+  width: min(200px, 30vw);
+  height: 1px;
+  background: rgba(233, 238, 246, 0.18);
+}
+.hero__progress i {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: var(--gold);
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+/* ==========================================================================
+   Nastro scorrevole
+   ========================================================================== */
+.ticker {
+  overflow: clip;
+  border-block: 1px solid var(--ink-line);
+  padding: 1.4rem 0;
+  background: var(--ink-990);
+}
+.ticker__track {
+  display: flex;
+  white-space: nowrap;
+  font: 500 1rem/1 var(--sans);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--white-dim);
+}
+.ticker__track span { animation: ticker-slide 38s linear infinite; }
+.no-motion .ticker__track span, .no-motion .hero__watermark span { animation: none; }
 
 /* ==========================================================================
    Capitoli — video fotorealistici guidati dallo scroll

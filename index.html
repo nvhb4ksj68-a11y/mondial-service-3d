@@ -109,29 +109,33 @@
 
   <main id="top">
 
-    <!-- ============ HERO ============ -->
+    <!-- ============ HERO: walkthrough guidato dallo scroll ============ -->
     <section class="hero" id="hero" aria-label="Presentazione">
-      <div class="hero__media" aria-hidden="true">
-        <video id="hero-video" autoplay muted loop playsinline preload="metadata"
-               poster="assets/img/hero.jpg" width="1920" height="1080" tabindex="-1" data-parallax="-8">
-          <source src="assets/video/hero-loop.mp4" type="video/mp4">
-          <source src="assets/video/hero-loop.webm" type="video/webm">
-        </video>
-      </div>
-      <div class="hero__inner">
-        <p class="hero__eyebrow" data-fade>Impresa di ristrutturazioni · Bologna e provincia</p>
-        <h1 class="hero__title" data-lines>
-          Ristrutturiamo case.<br>Costruiamo <em>eccellenza.</em>
-        </h1>
-        <p class="hero__payoff" data-fade>La qualità non ammette compromessi.</p>
-        <div class="hero__actions" data-fade>
-          <a class="link-arrow magnetic" href="#contatti">Richiedi un preventivo</a>
-          <a class="link-line magnetic" href="tel:+393297003558">Chiama ora</a>
+      <div class="hero__stage">
+        <div class="hero__media" aria-hidden="true">
+          <video id="hero-video" autoplay muted loop playsinline preload="metadata"
+                 poster="assets/img/hero.jpg" width="1920" height="1080" tabindex="-1">
+            <source src="assets/video/hero-loop.mp4" type="video/mp4">
+            <source src="assets/video/hero-loop.webm" type="video/webm">
+          </video>
         </div>
-      </div>
-      <div class="hero__foot" aria-hidden="true">
-        <span class="hero__scrollhint"><i></i>Scorri</span>
-        <span class="hero__foot-note">Dal sopralluogo alla consegna delle chiavi</span>
+        <div class="hero__shade" aria-hidden="true"></div>
+        <div class="hero__inner">
+          <p class="hero__eyebrow" data-hero-layer="1.6" data-fade>Impresa di ristrutturazioni · Bologna e provincia</p>
+          <h1 class="hero__title" data-hero-layer="1" data-lines>
+            Ristrutturiamo case.<br>Costruiamo <em>eccellenza.</em>
+          </h1>
+          <p class="hero__payoff" data-hero-layer="1.35" data-fade>La qualità non ammette compromessi.</p>
+          <div class="hero__actions" data-hero-layer="1.7" data-fade>
+            <a class="link-arrow magnetic" href="#contatti">Richiedi un preventivo</a>
+            <a class="link-line magnetic" href="tel:+393297003558">Chiama ora</a>
+          </div>
+        </div>
+        <p class="hero__watermark" aria-hidden="true"><span>Mondial Service — Bologna — Mondial Service — Bologna —&nbsp;</span><span>Mondial Service — Bologna — Mondial Service — Bologna —&nbsp;</span></p>
+        <div class="hero__foot" aria-hidden="true">
+          <span class="hero__scrollhint"><i></i>Scorri per entrare</span>
+          <span class="hero__progress"><i id="hero-progress"></i></span>
+        </div>
       </div>
     </section>
 
@@ -301,6 +305,13 @@
         </article>
       </div>
     </section>
+
+    <!-- ============ NASTRO SCORREVOLE ============ -->
+    <div class="ticker" aria-hidden="true">
+      <div class="ticker__track">
+        <span>Ristrutturazioni chiavi in mano · Impianti idraulici ed elettrici · Finiture, cartongesso e pavimenti · Bologna e provincia ·&nbsp;</span><span>Ristrutturazioni chiavi in mano · Impianti idraulici ed elettrici · Finiture, cartongesso e pavimenti · Bologna e provincia ·&nbsp;</span>
+      </div>
+    </div>
 
     <!-- ============ RECENSIONE (sezione chiara) ============ -->
     <section class="review" id="recensioni" aria-labelledby="recensioni-title">
