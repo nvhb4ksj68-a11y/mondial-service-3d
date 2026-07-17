@@ -3,26 +3,27 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Mondial Service Srl | Ristrutturazioni chiavi in mano a Bologna e provincia</title>
-  <meta name="description" content="Mondial Service Srl: ristrutturazioni chiavi in mano, impianti idraulici ed elettrici, finiture e cartongesso a Bologna e provincia. Qualità premium, tempi certi. Richiedi un preventivo gratuito.">
+  <title>Mondial Service Srl — Ristrutturazioni d'autore a Bologna e provincia</title>
+  <meta name="description" content="Mondial Service Srl: ristrutturazioni chiavi in mano, impianti e finiture di pregio a Bologna e provincia. La qualità non ammette compromessi. Preventivo gratuito.">
   <meta name="keywords" content="ristrutturazioni Bologna, ristrutturazione chiavi in mano, impianti idraulici Bologna, impianti elettrici Bologna, cartongesso, pavimenti, finiture, impresa edile Bologna">
   <meta name="geo.region" content="IT-BO">
   <meta name="geo.placename" content="Bologna">
   <meta name="robots" content="index, follow">
-  <meta name="theme-color" content="#0F1B2E">
+  <meta name="theme-color" content="#0A1220">
   <link rel="canonical" href="https://mondialservice.readdy.co/">
 
   <meta property="og:type" content="website">
   <meta property="og:locale" content="it_IT">
-  <meta property="og:title" content="Mondial Service Srl | Ristrutturiamo case. Costruiamo eccellenza.">
-  <meta property="og:description" content="Ristrutturazioni premium chiavi in mano a Bologna e provincia. Impianti, finiture, cartongesso e pavimenti con un unico interlocutore.">
+  <meta property="og:title" content="Mondial Service Srl — Ristrutturiamo case. Costruiamo eccellenza.">
+  <meta property="og:description" content="Ristrutturazioni d'autore a Bologna e provincia. Chiavi in mano, impianti e finiture di pregio.">
   <meta property="og:url" content="https://mondialservice.readdy.co/">
   <meta property="og:site_name" content="Mondial Service Srl">
+  <meta property="og:image" content="assets/img/hero.jpg">
   <meta name="twitter:card" content="summary_large_image">
 
   <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
-  <link rel="preload" href="assets/fonts/playfair-var.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="assets/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/bodoni-var.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/jost-var.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="assets/css/main.css">
 
   <script type="application/ld+json">
@@ -30,15 +31,12 @@
     "@context": "https://schema.org",
     "@type": "HomeAndConstructionBusiness",
     "name": "Mondial Service Srl",
-    "description": "Impresa di ristrutturazioni premium: chiavi in mano, impianti idraulici ed elettrici, finiture, cartongesso e pavimenti.",
+    "description": "Impresa di ristrutturazioni: chiavi in mano, impianti idraulici ed elettrici, finiture, cartongesso e pavimenti.",
     "telephone": "+39 329 700 3558",
-    "areaServed": {
-      "@type": "AdministrativeArea",
-      "name": "Bologna e provincia"
-    },
+    "areaServed": { "@type": "AdministrativeArea", "name": "Bologna e provincia" },
     "address": {
       "@type": "PostalAddress",
-      "addressLocality": "Bologna",
+      "addressLocality": "Mordano",
       "addressRegion": "Emilia-Romagna",
       "addressCountry": "IT"
     },
@@ -47,316 +45,350 @@
   }
   </script>
 </head>
-<body class="intro-locked">
+<body class="is-loading">
 
-  <!-- ============ INTRO: porta che si apre (video reale se presente, altrimenti porta 3D) ============ -->
-  <div class="intro" id="intro" aria-label="Introduzione animata">
-    <video class="intro__video" id="intro-video" muted playsinline preload="none" aria-hidden="true">
+  <div class="page-bg" aria-hidden="true"></div>
+
+  <!-- ============ PRELOADER ============ -->
+  <div class="preloader" id="preloader" aria-hidden="true">
+    <div class="preloader__mark">
+      <span class="preloader__word">Mondial&nbsp;Service</span>
+      <span class="preloader__rule"></span>
+    </div>
+    <div class="preloader__counter"><span id="preloader-count">0</span><em>%</em></div>
+  </div>
+
+  <!-- ============ INTRO: la porta ============ -->
+  <div class="intro" id="intro" aria-label="Introduzione">
+    <video class="intro__video" id="intro-video" autoplay muted playsinline preload="auto" aria-hidden="true">
       <source src="assets/video/intro-porta.mp4" type="video/mp4">
+      <source src="assets/video/intro-porta.webm" type="video/webm">
     </video>
     <div class="intro__canvas" id="intro-canvas-slot" aria-hidden="true"></div>
-    <div class="intro__brand">
-      <span class="intro__logo">Mondial Service</span>
-      <span class="intro__tag">Ristrutturazioni premium — Bologna</span>
-    </div>
     <button class="intro__skip" id="intro-skip" type="button">
-      Salta intro
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      <span>Salta intro</span>
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
     </button>
   </div>
 
-  <!-- ============ NAVBAR ============ -->
-  <header class="nav" id="nav">
+  <!-- ============ HEADER ============ -->
+  <header class="site-head" id="site-head">
     <a class="skip-link" href="#servizi">Vai al contenuto</a>
-    <div class="nav__inner">
-      <a class="nav__logo" href="#top" aria-label="Mondial Service — torna all'inizio">
-        <svg class="nav__mark" width="34" height="34" viewBox="0 0 34 34" aria-hidden="true">
-          <rect x="1.5" y="1.5" width="31" height="31" rx="4" fill="none" stroke="#F5A623" stroke-width="1.6"/>
-          <path d="M8 25V10l9 9 9-9v15" fill="none" stroke="#F5A623" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-        <span class="nav__wordmark">Mondial <em>Service</em></span>
-      </a>
-      <nav class="nav__links" id="nav-links" aria-label="Navigazione principale">
-        <a href="#servizi">Servizi</a>
-        <a href="#portfolio">Portfolio</a>
-        <a href="#recensioni">Recensioni</a>
-        <a href="#contatti">Contatti</a>
-      </nav>
-      <div class="nav__cta">
-        <a class="btn btn--ghost btn--sm" href="tel:+393297003558">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-          <span>Chiama ora</span>
-        </a>
-        <a class="btn btn--gold btn--sm" href="#contatti">Richiedi un preventivo</a>
-      </div>
-      <button class="nav__burger" id="nav-burger" type="button" aria-expanded="false" aria-controls="nav-mobile" aria-label="Apri il menu">
-        <span></span><span></span><span></span>
-      </button>
+    <a class="site-head__brand" href="#top" aria-label="Mondial Service — inizio pagina">
+      <img class="site-head__logo" src="assets/img/logo-footer.png" alt="Mondial Service Srl" width="110" height="55" decoding="async">
+    </a>
+    <nav class="site-head__nav" aria-label="Navigazione principale">
+      <a href="#servizi" data-nav>Servizi</a>
+      <a href="#portfolio" data-nav>Portfolio</a>
+      <a href="#recensioni" data-nav>Recensioni</a>
+      <a href="#contatti" data-nav>Contatti</a>
+    </nav>
+    <div class="site-head__cta">
+      <a class="link-line magnetic" href="tel:+393297003558">329 700 3558</a>
+      <a class="btn-pill magnetic" href="#contatti">Preventivo</a>
     </div>
-    <div class="nav__mobile" id="nav-mobile" hidden>
-      <a href="#servizi">Servizi</a>
-      <a href="#portfolio">Portfolio</a>
-      <a href="#recensioni">Recensioni</a>
-      <a href="#contatti">Contatti</a>
-      <div class="nav__mobile-cta">
-        <a class="btn btn--gold" href="#contatti">Richiedi un preventivo</a>
-        <a class="btn btn--ghost" href="tel:+393297003558">Chiama ora — 329 700 3558</a>
-      </div>
-    </div>
+    <button class="site-head__burger" id="burger" type="button" aria-expanded="false" aria-controls="menu" aria-label="Apri il menu">
+      <span></span><span></span>
+    </button>
   </header>
+
+  <!-- Menu mobile a tutto schermo -->
+  <div class="menu" id="menu" hidden>
+    <nav class="menu__nav" aria-label="Menu">
+      <a href="#servizi"><em>01</em>Servizi</a>
+      <a href="#portfolio"><em>02</em>Portfolio</a>
+      <a href="#recensioni"><em>03</em>Recensioni</a>
+      <a href="#contatti"><em>04</em>Contatti</a>
+    </nav>
+    <div class="menu__foot">
+      <a href="tel:+393297003558">329 700 3558</a>
+      <a href="https://wa.me/393297003558" target="_blank" rel="noopener">WhatsApp</a>
+    </div>
+  </div>
 
   <main id="top">
 
-    <!-- ============ HERO ============ -->
+    <!-- ============ HERO: walkthrough guidato dallo scroll ============ -->
     <section class="hero" id="hero" aria-label="Presentazione">
-      <div class="hero__bg" id="hero-canvas-slot" aria-hidden="true"></div>
-      <div class="hero__fallback" aria-hidden="true"></div>
-      <div class="hero__content">
-        <p class="hero__eyebrow reveal">Impresa di ristrutturazioni · Bologna e provincia</p>
-        <h1 class="hero__title reveal">Ristrutturiamo case.<br><em>Costruiamo eccellenza.</em></h1>
-        <p class="hero__sub reveal">Dal progetto alla consegna delle chiavi: un unico interlocutore, tempi certi
-          e finiture di pregio per la casa che immagini.</p>
-        <div class="hero__actions reveal">
-          <a class="btn btn--gold btn--lg" href="#contatti">Richiedi un preventivo</a>
-          <a class="btn btn--ghost btn--lg" href="tel:+393297003558">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-            Chiama ora
+      <div class="hero__stage">
+        <div class="hero__media" aria-hidden="true">
+          <video id="hero-video" autoplay muted loop playsinline preload="metadata"
+                 poster="assets/img/hero.jpg" width="1920" height="1080" tabindex="-1">
+            <source src="assets/video/hero-loop.mp4" type="video/mp4">
+            <source src="assets/video/hero-loop.webm" type="video/webm">
+          </video>
+        </div>
+        <div class="hero__shade" aria-hidden="true"></div>
+        <div class="hero__inner">
+          <p class="hero__eyebrow" data-hero-layer="1.6" data-fade>Impresa di ristrutturazioni · Bologna e provincia</p>
+          <h1 class="hero__title" data-hero-layer="1" data-lines>
+            Ristrutturiamo case.<br>Costruiamo <em>eccellenza.</em>
+          </h1>
+          <p class="hero__payoff" data-hero-layer="1.35" data-fade>La qualità non ammette compromessi.</p>
+          <div class="hero__actions" data-hero-layer="1.7" data-fade>
+            <a class="link-arrow magnetic" href="#contatti">Richiedi un preventivo</a>
+            <a class="link-line magnetic" href="tel:+393297003558">Chiama ora</a>
+          </div>
+        </div>
+        <p class="hero__watermark" aria-hidden="true"><span>Mondial Service — Bologna — Mondial Service — Bologna —&nbsp;</span><span>Mondial Service — Bologna — Mondial Service — Bologna —&nbsp;</span></p>
+        <div class="hero__foot" aria-hidden="true">
+          <span class="hero__scrollhint"><i></i>Scorri per entrare</span>
+          <span class="hero__progress"><i id="hero-progress"></i></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CAPITOLI: video fotorealistici guidati dallo scroll ============ -->
+    <section class="chapters" id="percorso" aria-label="Il percorso di una ristrutturazione">
+      <article class="chapter" data-chapter>
+        <div class="chapter__stage">
+          <video class="chapter__video" muted playsinline preload="metadata"
+                 poster="assets/img/poster-living.jpg" aria-hidden="true" tabindex="-1">
+            <source src="assets/video/scene-living.mp4" type="video/mp4">
+            <source src="assets/video/scene-living.webm" type="video/webm">
+          </video>
+          <div class="chapter__shade" aria-hidden="true"></div>
+          <div class="chapter__copy">
+            <p class="chapter__kicker">Capitolo 01 — Gli spazi</p>
+            <h3 class="chapter__title" data-lines>Lo spazio torna<br><em>a respirare.</em></h3>
+          </div>
+          <span class="chapter__progress" aria-hidden="true"><i></i></span>
+        </div>
+      </article>
+      <article class="chapter" data-chapter>
+        <div class="chapter__stage">
+          <video class="chapter__video" muted playsinline preload="metadata"
+                 poster="assets/img/poster-cucina.jpg" aria-hidden="true" tabindex="-1">
+            <source src="assets/video/scene-cucina.mp4" type="video/mp4">
+            <source src="assets/video/scene-cucina.webm" type="video/webm">
+          </video>
+          <div class="chapter__shade" aria-hidden="true"></div>
+          <div class="chapter__copy">
+            <p class="chapter__kicker">Capitolo 02 — I dettagli</p>
+            <h3 class="chapter__title" data-lines>Il dettaglio fa<br><em>la differenza.</em></h3>
+          </div>
+          <span class="chapter__progress" aria-hidden="true"><i></i></span>
+        </div>
+      </article>
+      <article class="chapter" data-chapter>
+        <div class="chapter__stage">
+          <video class="chapter__video" muted playsinline preload="metadata"
+                 poster="assets/img/poster-bagno.jpg" aria-hidden="true" tabindex="-1">
+            <source src="assets/video/scene-bagno.mp4" type="video/mp4">
+            <source src="assets/video/scene-bagno.webm" type="video/webm">
+          </video>
+          <div class="chapter__shade" aria-hidden="true"></div>
+          <div class="chapter__copy">
+            <p class="chapter__kicker">Capitolo 03 — La consegna</p>
+            <h3 class="chapter__title" data-lines>Chiavi in mano.<br><em>Letteralmente.</em></h3>
+          </div>
+          <span class="chapter__progress" aria-hidden="true"><i></i></span>
+        </div>
+      </article>
+    </section>
+
+    <!-- ============ SERVIZI (pannelli impilati) ============ -->
+    <section class="services" id="servizi" aria-labelledby="servizi-title">
+      <header class="services__head">
+        <p class="eyebrow" data-fade>Cosa facciamo</p>
+        <h2 class="display" id="servizi-title" data-lines>Tre mestieri,<br><em>un solo cantiere.</em></h2>
+      </header>
+
+      <article class="panel" aria-label="Servizio 1 di 3">
+        <div class="panel__inner">
+          <span class="panel__index" aria-hidden="true">01</span>
+          <h3 class="panel__title" data-lines>Chiavi<br>in mano</h3>
+          <p class="panel__text" data-fade>Un unico interlocutore dal progetto alla consegna.
+            Tempi certi, costi trasparenti.</p>
+          <a class="link-arrow magnetic" href="#contatti" data-fade>Parliamone</a>
+        </div>
+      </article>
+      <article class="panel" aria-label="Servizio 2 di 3">
+        <div class="panel__inner">
+          <span class="panel__index" aria-hidden="true">02</span>
+          <h3 class="panel__title" data-lines>Impianti idraulici<br>ed elettrici</h3>
+          <p class="panel__text" data-fade>Idraulica, elettrico e clima. Certificati, invisibili,
+            progettati per durare.</p>
+          <a class="link-arrow magnetic" href="#contatti" data-fade>Parliamone</a>
+        </div>
+      </article>
+      <article class="panel" aria-label="Servizio 3 di 3">
+        <div class="panel__inner">
+          <span class="panel__index" aria-hidden="true">03</span>
+          <h3 class="panel__title" data-lines>Finiture, cartongesso<br>e pavimenti</h3>
+          <p class="panel__text" data-fade>Controsoffitti, pavimenti, tinteggiature.
+            Il dettaglio che distingue.</p>
+          <a class="link-arrow magnetic" href="#contatti" data-fade>Parliamone</a>
+        </div>
+      </article>
+    </section>
+
+    <!-- ============ PORTFOLIO ============ -->
+    <section class="work" id="portfolio" aria-labelledby="portfolio-title">
+      <header class="work__head">
+        <p class="eyebrow" data-fade>Portfolio</p>
+        <h2 class="display" id="portfolio-title" data-lines>I nostri<br><em>lavori.</em></h2>
+        <p class="work__count" data-fade aria-hidden="true">07 progetti — Bologna e provincia</p>
+      </header>
+
+      <div class="work__list">
+        <article class="project" data-project>
+          <a class="project__media" href="#contatti" aria-label="Appartamento in centro storico — chiedi informazioni">
+            <img src="assets/img/portfolio-1.jpg" alt="Appartamento in centro storico a Bologna, restauro completo" width="1600" height="1000" loading="lazy" decoding="async">
           </a>
-        </div>
-        <ul class="hero__badges reveal" aria-label="Punti di forza">
-          <li>Chiavi in mano</li>
-          <li>Preventivo gratuito</li>
-          <li>Bologna e provincia</li>
-        </ul>
-      </div>
-      <a class="hero__scroll" href="#servizi" aria-label="Scorri alla sezione servizi">
-        <span></span>
-      </a>
-    </section>
-
-    <!-- ============ SERVIZI ============ -->
-    <section class="services section" id="servizi" aria-labelledby="servizi-title">
-      <div class="section__head">
-        <p class="section__eyebrow reveal">Cosa facciamo</p>
-        <h2 class="section__title reveal" id="servizi-title">Tre competenze, <em>un solo cantiere</em></h2>
-        <p class="section__sub reveal">Gestiamo internamente ogni fase della ristrutturazione,
-          senza passaggi di mano e senza sorprese.</p>
-      </div>
-      <div class="services__grid">
-        <article class="card3d reveal" tabindex="0">
-          <div class="card3d__body">
-            <div class="card3d__icon" aria-hidden="true">
-              <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V7l7-4 7 4v14"/><path d="M9 21v-6h6v6"/><path d="M10 9h.01M14 9h.01M10 12h.01M14 12h.01"/></svg>
-            </div>
-            <h3>Ristrutturazioni chiavi in mano</h3>
-            <p>Coordiniamo ogni fase del cantiere: progettazione, demolizioni, ricostruzione
-              e consegna finale. Un unico referente, tempi certi e costi trasparenti.</p>
-            <a class="card3d__link" href="#contatti">Parliamone <span aria-hidden="true">→</span></a>
-          </div>
-          <div class="card3d__sheen" aria-hidden="true"></div>
+          <footer class="project__meta">
+            <span class="project__num" aria-hidden="true">01</span>
+            <h3 class="project__name">Appartamento in centro storico</h3>
+            <span class="project__tag">Restauro completo</span>
+          </footer>
         </article>
-        <article class="card3d reveal" tabindex="0">
-          <div class="card3d__body">
-            <div class="card3d__icon" aria-hidden="true">
-              <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8z"/></svg>
-            </div>
-            <h3>Impianti idraulici ed elettrici</h3>
-            <p>Impianti certificati e a norma, progettati per durare: idraulica, elettrico,
-              riscaldamento e climatizzazione con materiali di prima scelta.</p>
-            <a class="card3d__link" href="#contatti">Parliamone <span aria-hidden="true">→</span></a>
-          </div>
-          <div class="card3d__sheen" aria-hidden="true"></div>
+        <article class="project project--right" data-project>
+          <a class="project__media" href="#contatti" aria-label="Cucina su misura — chiedi informazioni">
+            <img src="assets/img/portfolio-2.jpg" alt="Cucina su misura con isola e luci a sospensione" width="1600" height="1000" loading="lazy" decoding="async">
+          </a>
+          <footer class="project__meta">
+            <span class="project__num" aria-hidden="true">02</span>
+            <h3 class="project__name">Cucina su misura</h3>
+            <span class="project__tag">Ristrutturazione completa</span>
+          </footer>
         </article>
-        <article class="card3d reveal" tabindex="0">
-          <div class="card3d__body">
-            <div class="card3d__icon" aria-hidden="true">
-              <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9L12 3z"/><path d="M12 12l8-4.5M12 12v9M12 12L4 7.5"/></svg>
-            </div>
-            <h3>Finiture, cartongesso e pavimenti</h3>
-            <p>La cura del dettaglio che fa la differenza: controsoffitti, pareti in cartongesso,
-              posa di pavimenti e rivestimenti, tinteggiature di pregio.</p>
-            <a class="card3d__link" href="#contatti">Parliamone <span aria-hidden="true">→</span></a>
-          </div>
-          <div class="card3d__sheen" aria-hidden="true"></div>
+        <article class="project" data-project>
+          <a class="project__media" href="#contatti" aria-label="Bagno di design — chiedi informazioni">
+            <img src="assets/img/portfolio-3.jpg" alt="Bagno di design in resina e pietra naturale" width="1600" height="1000" loading="lazy" decoding="async">
+          </a>
+          <footer class="project__meta">
+            <span class="project__num" aria-hidden="true">03</span>
+            <h3 class="project__name">Bagno di design</h3>
+            <span class="project__tag">Resine e pietra</span>
+          </footer>
         </article>
-      </div>
-    </section>
-
-    <!-- ============ PORTFOLIO: galleria 3D ============ -->
-    <section class="portfolio section section--dark" id="portfolio" aria-labelledby="portfolio-title">
-      <div class="section__head">
-        <p class="section__eyebrow section__eyebrow--ondark reveal">I nostri lavori</p>
-        <h2 class="section__title section__title--ondark reveal" id="portfolio-title">Progetti che <em>parlano da soli</em></h2>
-        <p class="section__sub section__sub--ondark reveal">Scorri la galleria: ogni progetto è una casa consegnata
-          a Bologna e provincia.</p>
-      </div>
-
-      <div class="gallery reveal" id="gallery" role="region" aria-roledescription="galleria" aria-label="Portfolio progetti — usa le frecce per scorrere" tabindex="0">
-        <div class="gallery__stage" id="gallery-stage">
-          <figure class="gallery__item" data-index="0">
-            <img src="assets/img/portfolio/01.svg" width="1200" height="900" alt="Ristrutturazione di un appartamento in centro storico a Bologna" loading="eager" decoding="async">
-            <figcaption>Appartamento in centro storico — Bologna</figcaption>
-          </figure>
-          <figure class="gallery__item" data-index="1">
-            <img src="assets/img/portfolio/02.svg" width="1200" height="900" alt="Cucina su misura realizzata durante una ristrutturazione completa" loading="lazy" decoding="async">
-            <figcaption>Cucina su misura — ristrutturazione completa</figcaption>
-          </figure>
-          <figure class="gallery__item" data-index="2">
-            <img src="assets/img/portfolio/03.svg" width="1200" height="900" alt="Bagno di design con resine e pietra naturale" loading="lazy" decoding="async">
-            <figcaption>Bagno di design — resine e pietra naturale</figcaption>
-          </figure>
-          <figure class="gallery__item" data-index="3">
-            <img src="assets/img/portfolio/04.svg" width="1200" height="900" alt="Soggiorno open space con cartongesso e illuminazione integrata" loading="lazy" decoding="async">
-            <figcaption>Soggiorno open space — cartongesso e luci</figcaption>
-          </figure>
-          <figure class="gallery__item" data-index="4">
-            <img src="assets/img/portfolio/05.svg" width="1200" height="900" alt="Attico con terrazzo, rifacimento totale" loading="lazy" decoding="async">
-            <figcaption>Attico con terrazzo — rifacimento totale</figcaption>
-          </figure>
-          <figure class="gallery__item" data-index="5">
-            <img src="assets/img/portfolio/06.svg" width="1200" height="900" alt="Villa in provincia di Bologna ristrutturata chiavi in mano" loading="lazy" decoding="async">
-            <figcaption>Villa in provincia — chiavi in mano</figcaption>
-          </figure>
-          <figure class="gallery__item" data-index="6">
-            <img src="assets/img/portfolio/07.svg" width="1200" height="900" alt="Camera padronale con finiture di pregio" loading="lazy" decoding="async">
-            <figcaption>Camera padronale — finiture di pregio</figcaption>
-          </figure>
-        </div>
-        <div class="gallery__nav">
-          <button class="gallery__btn" id="gallery-prev" type="button" aria-label="Progetto precedente">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
-          </button>
-          <div class="gallery__dots" id="gallery-dots" role="tablist" aria-label="Seleziona progetto"></div>
-          <button class="gallery__btn" id="gallery-next" type="button" aria-label="Progetto successivo">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-          </button>
-        </div>
-        <p class="gallery__status" id="gallery-status" aria-live="polite"></p>
+        <article class="project project--right" data-project>
+          <a class="project__media" href="#contatti" aria-label="Soggiorno open space — chiedi informazioni">
+            <img src="assets/img/portfolio-4.jpg" alt="Soggiorno open space con cartongesso e luce naturale" width="1600" height="1000" loading="lazy" decoding="async">
+          </a>
+          <footer class="project__meta">
+            <span class="project__num" aria-hidden="true">04</span>
+            <h3 class="project__name">Soggiorno open space</h3>
+            <span class="project__tag">Cartongesso e luce</span>
+          </footer>
+        </article>
+        <article class="project" data-project>
+          <a class="project__media" href="#contatti" aria-label="Attico con terrazzo — chiedi informazioni">
+            <img src="assets/img/portfolio-5.jpg" alt="Attico con terrazzo e vista sulla città" width="1600" height="1000" loading="lazy" decoding="async">
+          </a>
+          <footer class="project__meta">
+            <span class="project__num" aria-hidden="true">05</span>
+            <h3 class="project__name">Attico con terrazzo</h3>
+            <span class="project__tag">Rifacimento totale</span>
+          </footer>
+        </article>
+        <article class="project project--right" data-project>
+          <a class="project__media" href="#contatti" aria-label="Villa in provincia — chiedi informazioni">
+            <img src="assets/img/portfolio-6.jpg" alt="Villa in provincia di Bologna ristrutturata chiavi in mano" width="1600" height="1000" loading="lazy" decoding="async">
+          </a>
+          <footer class="project__meta">
+            <span class="project__num" aria-hidden="true">06</span>
+            <h3 class="project__name">Villa in provincia</h3>
+            <span class="project__tag">Chiavi in mano</span>
+          </footer>
+        </article>
+        <article class="project" data-project>
+          <a class="project__media" href="#contatti" aria-label="Camera padronale — chiedi informazioni">
+            <img src="assets/img/portfolio-7.jpg" alt="Camera padronale con finiture di pregio" width="1600" height="1000" loading="lazy" decoding="async">
+          </a>
+          <footer class="project__meta">
+            <span class="project__num" aria-hidden="true">07</span>
+            <h3 class="project__name">Camera padronale</h3>
+            <span class="project__tag">Finiture di pregio</span>
+          </footer>
+        </article>
       </div>
     </section>
 
-    <!-- ============ RECENSIONE ============ -->
-    <section class="review section" id="recensioni" aria-labelledby="recensioni-title">
-      <div class="section__head">
-        <p class="section__eyebrow reveal">Dicono di noi</p>
-        <h2 class="section__title reveal" id="recensioni-title">La fiducia <em>si costruisce</em></h2>
+    <!-- ============ NASTRO SCORREVOLE ============ -->
+    <div class="ticker" aria-hidden="true">
+      <div class="ticker__track">
+        <span>Ristrutturazioni chiavi in mano · Impianti idraulici ed elettrici · Finiture, cartongesso e pavimenti · Bologna e provincia ·&nbsp;</span><span>Ristrutturazioni chiavi in mano · Impianti idraulici ed elettrici · Finiture, cartongesso e pavimenti · Bologna e provincia ·&nbsp;</span>
       </div>
-      <figure class="review__card reveal">
-        <div class="review__top">
-          <svg class="review__glogo" width="28" height="28" viewBox="0 0 24 24" aria-hidden="true">
+    </div>
+
+    <!-- ============ RECENSIONE (sezione chiara) ============ -->
+    <section class="review" id="recensioni" aria-labelledby="recensioni-title">
+      <div class="review__inner">
+        <p class="eyebrow eyebrow--onlight" data-fade>Dicono di noi</p>
+        <h2 class="visually-hidden" id="recensioni-title">Recensioni</h2>
+        <!-- TODO: sostituire con il testo reale della recensione Google del sito attuale -->
+        <blockquote class="review__quote" data-lines>
+          «Professionali, puntuali, precisi. Il risultato è oltre le aspettative.»
+        </blockquote>
+        <figcaption class="review__by" data-fade>
+          <svg class="review__g" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
             <path fill="#4285F4" d="M23.49 12.27c0-.79-.07-1.54-.19-2.27H12v4.51h6.47a5.57 5.57 0 0 1-2.4 3.58v3h3.86c2.26-2.09 3.56-5.17 3.56-8.82z"/>
             <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.86-3c-1.08.72-2.45 1.16-4.07 1.16-3.13 0-5.78-2.11-6.73-4.96H1.29v3.09A11.99 11.99 0 0 0 12 24z"/>
             <path fill="#FBBC05" d="M5.27 14.29A7.19 7.19 0 0 1 4.89 12c0-.8.14-1.57.38-2.29V6.62H1.29a11.99 11.99 0 0 0 0 10.76l3.98-3.09z"/>
             <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.31 0 3.26 2.69 1.29 6.62l3.98 3.09C6.22 6.86 8.87 4.75 12 4.75z"/>
           </svg>
-          <div class="review__stars" role="img" aria-label="Valutazione: 5 stelle su 5">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-          </div>
-        </div>
-        <!-- TODO: sostituire con il testo reale della recensione Google presente sul sito attuale -->
-        <blockquote>
-          «Professionali, puntuali e precisi. Hanno ristrutturato completamente il nostro
-          appartamento a Bologna rispettando tempi e budget: il risultato è oltre le aspettative.»
-        </blockquote>
-        <figcaption>
-          <span class="review__author">Cliente verificato</span>
-          <span class="review__source">Recensione Google</span>
+          <span class="review__stars" role="img" aria-label="Cinque stelle su cinque">★★★★★</span>
+          <span class="review__who">Cliente verificato — Recensione Google</span>
         </figcaption>
-      </figure>
+      </div>
     </section>
 
     <!-- ============ CONTATTI ============ -->
-    <section class="contact section section--beige" id="contatti" aria-labelledby="contatti-title">
-      <div class="section__head">
-        <p class="section__eyebrow reveal">Contatti</p>
-        <h2 class="section__title reveal" id="contatti-title">Iniziamo dal <em>tuo preventivo</em></h2>
-        <p class="section__sub reveal">Raccontaci il tuo progetto: ti rispondiamo entro 24 ore, il sopralluogo è gratuito.</p>
-      </div>
+    <section class="contact" id="contatti" aria-labelledby="contatti-title">
+      <header class="contact__head">
+        <p class="eyebrow" data-fade>Contatti</p>
+        <h2 class="display display--xl" id="contatti-title" data-lines>Parliamone.</h2>
+        <p class="contact__note" data-fade>Sopralluogo e preventivo gratuiti. Rispondiamo entro 24 ore.</p>
+      </header>
 
       <div class="contact__grid">
-        <form class="contact__form reveal" id="quote-form" novalidate>
+        <div class="contact__channels">
+          <a class="contact__big magnetic" href="tel:+393297003558">
+            <span class="contact__big-label">Telefono</span>
+            <span class="contact__big-value">329 700 3558</span>
+          </a>
+          <a class="contact__big magnetic" href="https://wa.me/393297003558?text=Buongiorno%2C%20vorrei%20un%20preventivo%20per%20una%20ristrutturazione." target="_blank" rel="noopener">
+            <span class="contact__big-label">WhatsApp</span>
+            <span class="contact__big-value">Scrivici ora</span>
+          </a>
+          <p class="contact__where" data-fade>
+            Sede: Mordano (BO) — operiamo a <strong>Bologna e provincia</strong>.
+            <a class="link-line" href="https://www.google.com/maps?q=Mordano%20BO" target="_blank" rel="noopener">Vedi sulla mappa</a>
+          </p>
+        </div>
+
+        <form class="contact__form" id="quote-form" novalidate>
           <div class="field">
-            <label for="f-name">Nome e cognome <span aria-hidden="true">*</span></label>
+            <label for="f-name">Nome e cognome</label>
             <input id="f-name" name="name" type="text" autocomplete="name" required>
             <p class="field__error" id="f-name-err" hidden>Inserisci il tuo nome.</p>
           </div>
           <div class="field">
-            <label for="f-phone">Telefono <span aria-hidden="true">*</span></label>
+            <label for="f-phone">Telefono</label>
             <input id="f-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" required>
-            <p class="field__error" id="f-phone-err" hidden>Inserisci un numero di telefono valido.</p>
+            <p class="field__error" id="f-phone-err" hidden>Inserisci un numero valido.</p>
           </div>
           <div class="field">
-            <label for="f-msg">Il tuo progetto <span aria-hidden="true">*</span></label>
-            <textarea id="f-msg" name="message" rows="4" required placeholder="Es. ristrutturazione completa di un appartamento di 90 mq a Bologna"></textarea>
-            <p class="field__hint">Due righe bastano: ti richiamiamo noi per i dettagli.</p>
-            <p class="field__error" id="f-msg-err" hidden>Descrivi in breve il tuo progetto.</p>
+            <label for="f-msg">Il tuo progetto</label>
+            <textarea id="f-msg" name="message" rows="3" required placeholder="Es. appartamento di 90 mq da ristrutturare"></textarea>
+            <p class="field__error" id="f-msg-err" hidden>Due righe bastano.</p>
           </div>
-          <button class="btn btn--gold btn--lg contact__submit" type="submit">
-            Invia su WhatsApp
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.64.07-.3-.15-1.26-.46-2.39-1.47-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.61.13-.13.3-.35.44-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.5 0 1.47 1.07 2.89 1.22 3.09.15.2 2.11 3.22 5.1 4.51.71.31 1.27.49 1.7.63.72.23 1.37.2 1.88.12.57-.09 1.76-.72 2.01-1.42.25-.7.25-1.29.17-1.42-.07-.13-.27-.2-.57-.35zM12.05 21.79h-.004a9.72 9.72 0 0 1-4.96-1.36l-.36-.21-3.69.97.98-3.6-.23-.37a9.72 9.72 0 0 1-1.49-5.18c0-5.38 4.38-9.76 9.77-9.76a9.7 9.7 0 0 1 6.9 2.86 9.7 9.7 0 0 1 2.86 6.91c0 5.38-4.39 9.75-9.77 9.75zm8.31-18.06A11.68 11.68 0 0 0 12.05 0C5.5 0 .17 5.33.17 11.88c0 2.1.55 4.14 1.59 5.94L.07 24l6.33-1.66a11.87 11.87 0 0 0 5.65 1.44c6.55 0 11.88-5.33 11.88-11.88 0-3.18-1.24-6.16-3.48-8.4z"/></svg>
-          </button>
-          <p class="contact__form-note">Premendo il pulsante si apre WhatsApp con il messaggio già pronto: non salviamo alcun dato.</p>
+          <button class="btn-pill btn-pill--lg magnetic" type="submit">Invia su WhatsApp</button>
+          <p class="contact__privacy">Si apre WhatsApp con il messaggio già scritto: nessun dato viene salvato.</p>
         </form>
-
-        <div class="contact__info reveal">
-          <ul class="contact__channels">
-            <li>
-              <a class="contact__channel" href="tel:+393297003558">
-                <span class="contact__channel-icon" aria-hidden="true">
-                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-                </span>
-                <span>
-                  <strong>Chiama ora</strong>
-                  <span>329 700 3558</span>
-                </span>
-              </a>
-            </li>
-            <li>
-              <a class="contact__channel" href="https://wa.me/393297003558?text=Buongiorno%2C%20vorrei%20un%20preventivo%20per%20una%20ristrutturazione." target="_blank" rel="noopener">
-                <span class="contact__channel-icon" aria-hidden="true">
-                  <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.64.07-.3-.15-1.26-.46-2.39-1.47-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.61.13-.13.3-.35.44-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.5 0 1.47 1.07 2.89 1.22 3.09.15.2 2.11 3.22 5.1 4.51.71.31 1.27.49 1.7.63.72.23 1.37.2 1.88.12.57-.09 1.76-.72 2.01-1.42.25-.7.25-1.29.17-1.42-.07-.13-.27-.2-.57-.35zM12.05 21.79h-.004a9.72 9.72 0 0 1-4.96-1.36l-.36-.21-3.69.97.98-3.6-.23-.37a9.72 9.72 0 0 1-1.49-5.18c0-5.38 4.38-9.76 9.77-9.76a9.7 9.7 0 0 1 6.9 2.86 9.7 9.7 0 0 1 2.86 6.91c0 5.38-4.39 9.75-9.77 9.75zm8.31-18.06A11.68 11.68 0 0 0 12.05 0C5.5 0 .17 5.33.17 11.88c0 2.1.55 4.14 1.59 5.94L.07 24l6.33-1.66a11.87 11.87 0 0 0 5.65 1.44c6.55 0 11.88-5.33 11.88-11.88 0-3.18-1.24-6.16-3.48-8.4z"/></svg>
-                </span>
-                <span>
-                  <strong>WhatsApp</strong>
-                  <span>Scrivici quando vuoi</span>
-                </span>
-              </a>
-            </li>
-            <li>
-              <span class="contact__channel contact__channel--static">
-                <span class="contact__channel-icon" aria-hidden="true">
-                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>
-                </span>
-                <span>
-                  <strong>Dove operiamo</strong>
-                  <span>Bologna e provincia</span>
-                </span>
-              </span>
-            </li>
-          </ul>
-
-          <div class="contact__map" id="map-facade">
-            <button class="contact__map-load" id="map-load" type="button">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>
-              Carica la mappa di Bologna
-            </button>
-            <p class="contact__map-note">La mappa Google viene caricata solo su richiesta, per proteggere i tuoi dati e la velocità della pagina.</p>
-          </div>
-        </div>
       </div>
     </section>
   </main>
 
   <!-- ============ FOOTER ============ -->
   <footer class="footer">
-    <div class="footer__inner">
+    <div class="footer__grid">
       <div class="footer__brand">
-        <span class="footer__logo">Mondial <em>Service</em></span>
-        <p>Impresa di ristrutturazioni premium.<br>Bologna e provincia.</p>
+        <span class="footer__logo-card">
+          <img src="assets/img/logo-footer.png" alt="Mondial Service Srl — Ristrutturazioni, impianti, servizi" width="220" height="110" loading="lazy" decoding="async">
+        </span>
+        <p>Ristrutturazioni d'autore.<br>Bologna e provincia.</p>
       </div>
       <nav class="footer__nav" aria-label="Navigazione a piè di pagina">
         <a href="#servizi">Servizi</a>
@@ -365,27 +397,27 @@
         <a href="#contatti">Contatti</a>
       </nav>
       <div class="footer__contact">
-        <a href="tel:+393297003558">Tel. 329 700 3558</a>
+        <a href="tel:+393297003558">329 700 3558</a>
         <a href="https://wa.me/393297003558" target="_blank" rel="noopener">WhatsApp</a>
       </div>
     </div>
-    <div class="footer__legal">
-      <!-- TODO: inserire la P.IVA reale riportata nel footer del sito attuale -->
-      <p>© 2026 Mondial Service Srl — P.IVA 00000000000 — Tutti i diritti riservati</p>
-    </div>
+    <!-- TODO: inserire la P.IVA reale riportata nel footer del sito attuale -->
+    <p class="footer__legal">© 2026 Mondial Service Srl — P.IVA 00000000000 — Tutti i diritti riservati</p>
   </footer>
 
-  <!-- Barra CTA fissa su mobile -->
-  <div class="cta-bar" id="cta-bar" aria-hidden="false">
-    <a class="btn btn--ghost" href="tel:+393297003558">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-      Chiama
-    </a>
-    <a class="btn btn--gold" href="#contatti">Preventivo</a>
+  <!-- Barra CTA mobile -->
+  <div class="cta-bar" id="cta-bar">
+    <a href="tel:+393297003558">Chiama</a>
+    <a href="#contatti">Preventivo</a>
   </div>
+
+  <!-- Cursore custom (solo desktop) -->
+  <div class="cursor" id="cursor" aria-hidden="true"></div>
+  <div class="cursor-ring" id="cursor-ring" aria-hidden="true"><span id="cursor-label"></span></div>
 
   <script src="assets/vendor/gsap.min.js" defer></script>
   <script src="assets/vendor/ScrollTrigger.min.js" defer></script>
-  <script type="module" src="assets/js/main.js"></script>
+  <script src="assets/vendor/lenis.min.js" defer></script>
+  <script type="module" src="assets/js/app.js"></script>
 </body>
 </html>

@@ -1,42 +1,33 @@
 # ⚠️ Contenuti da sostituire con quelli reali
 
-Il sito originale (`https://mondialservice.readdy.co`) **non era raggiungibile** dall'ambiente di
-sviluppo (dominio bloccato dalla policy di rete, nessuna copia in cache o su archive.org).
-Struttura, testi e palette seguono la descrizione fornita, ma questi contenuti sono
-**segnaposto** e vanno sostituiti con gli originali:
+Il sito originale (`https://mondialservice.readdy.co`) non era raggiungibile dall'ambiente
+di sviluppo (dominio bloccato dalla policy di rete). Questi contenuti sono **segnaposto**:
 
-## 1. Video intro (porta che si apre)
-- Scarica il video dal sito attuale e copialo in `assets/video/intro-porta.mp4`.
-- Finché manca, l'intro usa una porta 3D animata (Three.js) come fallback automatico.
-- Dettagli in `assets/video/README.md`.
+## 1. Video (✅ fatti — render AI via Kling 3.0)
+- `intro-porta` (porta che si apre), `hero-loop` (walkthrough 15 s) e le tre scene
+  dei capitoli (`scene-living/cucina/bagno`) sono render AI fotorealistici già montati.
+- Per sostituirli con riprese reali basta sovrascrivere i file mp4+webm in `assets/video/`
+  (per le scene capitolo ricodificare con keyframe fitti: `ffmpeg … -g 8`).
 
-## 2. Le 7 foto del portfolio
-- Ora in `assets/img/portfolio/01.svg … 07.svg` ci sono tavole grafiche segnaposto.
-- Sostituiscile con le foto reali (idealmente `.webp` o `.jpg`, ~1200×900) e aggiorna
-  i `src`, gli `alt` e le `figcaption` dei 7 `<figure class="gallery__item">` in `index.html`.
-- Verifica anche che i titoli dei progetti (es. "Cucina su misura") corrispondano ai reali.
+## 2. Foto portfolio
+- `portfolio-1…4.jpg` sono fotogrammi dei render AI; `portfolio-5/6/7.jpg` sono ancora
+  tavole segnaposto. Sostituiscili con foto reali dei lavori quando disponibili
+  (stesso nome file, ≈1600×1000): il trattamento scuro/caldo lo applica il sito.
+- ⚠️ I render AI mostrano interni *verosimili ma non reali*: per correttezza verso i
+  clienti, appena possibile usare foto vere dei cantieri nel portfolio.
 
 ## 3. Recensione Google
-- In `index.html`, sezione `#recensioni`: il testo tra `«…»` e il nome dell'autore sono
-  segnaposto (cerca il commento `TODO` nel file). Incolla la recensione reale dal sito attuale.
+- In `index.html`, sezione `#recensioni` (commento `TODO`): il testo tra «…» è segnaposto.
+  Incolla la recensione reale.
 
 ## 4. P.IVA nel footer
-- In `index.html`, footer: `P.IVA 00000000000` è un segnaposto (commento `TODO` accanto).
-- Non è stato possibile verificare online la P.IVA della Mondial Service Srl di Bologna
-  (le omonime trovate sono di Napoli e Milano): inserire quella riportata sul sito attuale.
+- `P.IVA 00000000000` in fondo a `index.html` è un segnaposto (commento `TODO`).
+  Non è stato possibile verificare online la P.IVA della Mondial Service di Mordano/Bologna.
 
-## 5. Testi delle card servizi e hero
-- Titoli hero e card corrispondono a quelli indicati ("Ristrutturiamo case. Costruiamo
-  eccellenza.", "Ristrutturazioni chiavi in mano", ecc.).
-- Le **descrizioni** delle card e il sottotitolo dell'hero sono stati riscritti in tono
-  premium coerente: confrontali con i testi reali del sito e allineali se differiscono.
+## 5. Indirizzo sede
+- Nei contatti c'è "Sede: Mordano (BO)": aggiungi via e numero civico se vuoi
+  (anche nel JSON-LD in `<head>`, campo `address`).
 
 ## 6. Canonical / dominio
-- Il tag `<link rel="canonical">` e le URL nei meta `og:` puntano a
-  `https://mondialservice.readdy.co/`: aggiornali se il sito verrà pubblicato su un
-  dominio proprio (es. `mondialservicebologna.it`).
-
-## 7. Indirizzo e mappa
-- La mappa (caricata su richiesta) inquadra Bologna in generale. Se esiste una sede
-  fisica da mostrare, aggiorna la query dell'iframe in `assets/js/main.js`
-  (funzione del pulsante `map-load`) e l'indirizzo nel JSON-LD in `index.html`.
+- `<link rel="canonical">` e i meta `og:` puntano a `https://mondialservice.readdy.co/`:
+  aggiornali quando il sito andrà su un dominio proprio.
