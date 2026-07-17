@@ -178,11 +178,13 @@ function endIntro(onAfter) {
 }
 
 async function runIntro() {
-  const seen = (() => {
-    try { return sessionStorage.getItem('ms-intro-seen') === '1'; } catch { return false; }
-  })();
+  // L'intro della porta parte a ogni visita (salvo "riduci movimento").
+  // Per i test: ?nointro oppure sessionStorage 'ms-intro-skip' la saltano.
+  const skip = (() => {
+    try { return sessionStorage.getItem('ms-intro-skip') === '1'; } catch { return false; }
+  })() || new URLSearchParams(location.search).has('nointro');
 
-  if (seen || reducedMotion) {
+  if (skip || reducedMotion) {
     intro.classList.add('intro--off');
     return;
   }
@@ -220,8 +222,21 @@ async function runIntro() {
         try {
           await introVideo.play();
         } catch {
-          // Autoplay negato (es. risparmio energetico iOS): porta 3D al suo posto
-          doorFallback();
+          // Autoplay negato (risparmio energetico iOS): il primo tocco fa
+          // partire il video; se non arriva, dopo 2.5s entra la porta 3D.
+          let resolved = false;
+          const tryPlay = () => {
+            if (resolved) return;
+            introVideo.play().then(() => { resolved = true; }).catch(() => {});
+          };
+          window.addEventListener('touchstart', tryPlay, { passive: true });
+          window.addEventListener('pointerdown', tryPlay, { passive: true });
+          window.setTimeout(() => {
+            if (!resolved && introVideo.paused && !introEnded) {
+              resolved = true;
+              doorFallback();
+            }
+          }, 2500);
         }
         return;
       }

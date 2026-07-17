@@ -379,23 +379,21 @@ a { color: inherit; }
 
 .site-head__brand {
   display: inline-flex;
-  align-items: baseline;
-  gap: 0.5rem;
+  align-items: center;
+  padding: 0.35rem 0.7rem;
+  background: #FFFFFF;
+  border-radius: 12px;
   text-decoration: none;
+  box-shadow: 0 8px 24px -14px rgba(4, 8, 16, 0.8);
+  transition: transform var(--t-fast) var(--ease);
 }
-.site-head__word {
-  font: 600 0.95rem/1 var(--sans);
-  letter-spacing: 0.24em;
-  text-transform: uppercase;
-  color: var(--white);
-  white-space: nowrap;
+.site-head__brand:hover { transform: translateY(-1px); }
+.site-head__logo {
+  height: 38px;
+  width: auto;
+  transition: height var(--t-slow) var(--ease);
 }
-.site-head__srl {
-  font: 400 0.62rem/1 var(--sans);
-  letter-spacing: 0.28em;
-  text-transform: uppercase;
-  color: var(--gold);
-}
+.site-head.is-scrolled .site-head__logo { height: 30px; }
 
 .site-head__nav { display: none; gap: 2.2rem; }
 .site-head__nav a {
