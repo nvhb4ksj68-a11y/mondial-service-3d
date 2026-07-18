@@ -324,7 +324,7 @@ function initScrollFx() {
 
   // Reveal dei titoli fuori dall'hero
   document.querySelectorAll('[data-lines]').forEach((el) => {
-    if (el.closest('.hero') || el.closest('.chapter')) return;
+    if (el.closest('.hero') || el.closest('.chapter') || el.closest('.metodo')) return;
     ScrollTrigger.create({
       trigger: el,
       start: 'top 82%',
@@ -448,6 +448,13 @@ function initHeroScrub() {
     opacity: 1,
     ease: 'none',
     scrollTrigger: { trigger: hero, start: '92% bottom', end: 'bottom bottom', scrub: true },
+  });
+
+  // Uscendo dall'hero la camera "entra" nella scena successiva
+  gsap.to(heroCanvas, {
+    scale: 1.12,
+    ease: 'none',
+    scrollTrigger: { trigger: hero, start: '88% bottom', end: 'bottom bottom', scrub: true },
   });
 
   gsap.to('.hero__watermark', {
@@ -578,6 +585,14 @@ function initChapters() {
       .fromTo(copy, { autoAlpha: 0, y: 46 }, { autoAlpha: 1, y: 0, duration: 0.15 }, 0)
       .to(copy, { autoAlpha: 0, y: -30, duration: 0.15 }, 0.85);
 
+    // Zoom-through: si entra nella scena e la si attraversa uscendo
+    gsap.timeline({
+      scrollTrigger: { trigger: chapter, start: 'top top', end: 'bottom bottom', scrub: true },
+      defaults: { ease: 'none' },
+    })
+      .fromTo(canvas, { scale: 1.14 }, { scale: 1, duration: 0.16 }, 0)
+      .to(canvas, { scale: 1.16, duration: 0.14 }, 0.86);
+
     // Ponte di buio tra le scene
     const fade = chapter.querySelector('.chapter__fade');
     if (fade) {
@@ -599,6 +614,81 @@ function initChapters() {
         .fromTo(card, { autoAlpha: 0, y: 34 }, { autoAlpha: 1, y: 0, duration: 0.1 }, 0.3)
         .to(card, { autoAlpha: 0, y: -20, duration: 0.1 }, 0.82);
     }
+  });
+}
+
+/* ============================== METODO: CANTIERE 3D ============================== */
+/* Scena Three.js real-time: la casa si assembla sotto il controllo dello
+   scroll (camera orbitante, bloom, luce volumetrica). Il modulo pesante si
+   carica solo quando la sezione è a ~1 viewport di distanza. */
+
+function initMetodo() {
+  const section = document.getElementById('metodo');
+  const canvas = document.getElementById('metodo-canvas');
+  if (!section || !canvas) return;
+
+  if (!supportsWebGL) {
+    section.classList.add('metodo--flat');
+    return;
+  }
+
+  let scene3d = null;
+  let lastProgress = 0;
+
+  new IntersectionObserver(async (entries, obs) => {
+    if (!entries[0].isIntersecting) return;
+    obs.disconnect();
+    try {
+      const m = await import('./metodo3d.js');
+      scene3d = m.createMetodo(canvas, { reducedMotion });
+      scene3d.setProgress(lastProgress);
+    } catch {
+      section.classList.add('metodo--flat');
+    }
+  }, { rootMargin: '100% 0px' }).observe(section);
+
+  const title = section.querySelector('[data-lines]');
+  if (reducedMotion) return; // layout statico: ci pensa il CSS .no-motion
+
+  ScrollTrigger.create({
+    trigger: section,
+    start: 'top 55%',
+    once: true,
+    onEnter: () => revealLines(title),
+  });
+
+  const bar = document.getElementById('metodo-progress');
+  ScrollTrigger.create({
+    trigger: section,
+    start: 'top top',
+    end: 'bottom bottom',
+    scrub: true,
+    onUpdate: (self) => {
+      lastProgress = self.progress;
+      scene3d?.setProgress(self.progress);
+      if (bar) bar.style.transform = `scaleY(${self.progress.toFixed(3)})`;
+    },
+  });
+
+  // Ogni passo vive nella finestra di progresso della sua fase di cantiere
+  const windows = [[0.05, 0.33], [0.38, 0.66], [0.72, 0.97]];
+  section.querySelectorAll('.metodo__step').forEach((step, i) => {
+    const [a, b] = windows[i] || [0.1, 0.9];
+    gsap.timeline({
+      scrollTrigger: { trigger: section, start: 'top top', end: 'bottom bottom', scrub: true },
+      defaults: { ease: 'none' },
+    })
+      .fromTo(step, { autoAlpha: 0, y: 40 }, { autoAlpha: 1, y: 0, duration: 0.07 }, a)
+      .to(step, { autoAlpha: 0, y: -26, duration: 0.07 }, b - 0.07)
+      .to({}, { duration: 0 }, 1); // àncora: la timeline copre TUTTA la sezione
+  });
+
+  // Il titolo lascia il palco quando la casa prende la scena
+  gsap.to(section.querySelector('.metodo__head'), {
+    autoAlpha: 0,
+    y: -34,
+    ease: 'none',
+    scrollTrigger: { trigger: section, start: '30% bottom', end: '46% bottom', scrub: true },
   });
 }
 
@@ -663,6 +753,7 @@ form.addEventListener('submit', (e) => {
   initScrollFx();
   initHeroScrub();
   initChapters();
+  initMetodo();
   initCursor();
   initMagnetic();
   syncHead();
