@@ -9,7 +9,9 @@
    Nessuna dipendenza esterna. */
 
 const DPR = Math.min(window.devicePixelRatio || 1, 2);
-const IS_MOBILE = window.matchMedia('(max-width: 768px)').matches;
+// Variante mobile 720p SOLO sotto i 768px: da 768px in su si servono
+// sempre i fotogrammi desktop a 1440px (nessun 720p sui monitor grandi).
+const IS_MOBILE = window.matchMedia('(max-width: 767.98px)').matches;
 
 /* Disegna l'immagine coprendo il canvas senza distorcere (object-fit: cover) */
 function drawCover(ctx, img, cw, ch) {

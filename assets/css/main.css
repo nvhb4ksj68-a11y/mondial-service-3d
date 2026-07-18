@@ -489,7 +489,7 @@ a { color: inherit; }
 /* ==========================================================================
    Hero
    ========================================================================== */
-.hero { height: 300vh; }
+.hero { height: 170vh; }
 .no-motion .hero, .no-scrub .hero { height: auto; }
 
 .hero__stage {
@@ -635,7 +635,7 @@ a { color: inherit; }
    Ogni capitolo è alto ~260vh: il palco resta fisso (sticky) mentre lo
    scroll fa avanzare il tempo del video, fotogramma per fotogramma.
    ========================================================================== */
-.chapter { height: 320vh; }
+.chapter { height: 150vh; }
 .no-motion .chapter, .no-scrub .chapter { height: auto; }
 
 .chapter__fade, .hero__fade {
@@ -758,7 +758,7 @@ a { color: inherit; }
    Metodo — cantiere 3D real-time guidato dallo scroll
    La casa si assembla pezzo per pezzo mentre la camera le orbita attorno.
    ========================================================================== */
-.metodo { height: 420vh; }
+.metodo { height: 260vh; }
 .no-motion .metodo, .metodo--flat { height: auto; }
 
 .metodo__stage {
