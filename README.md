@@ -27,8 +27,10 @@ npx http-server -p 8000        # dalla root del progetto
 | `assets/css/main.css` | Design system dark luxury (navy `#0A1220`, oro `#F5A623` chirurgico, beige raro) |
 | `assets/js/app.js` | Preloader, intro, Lenis, reveal a maschere, parallax, cursore custom, magnetic, form |
 | `assets/js/scrub.js` | Motore scroll-scrub a sequenza di fotogrammi su canvas (tecnica Apple) |
+| `assets/js/metodo3d.js` | Scena Three.js real-time "Il metodo": la casa si assembla guidata dallo scroll (bloom + luce volumetrica) |
 | `assets/js/webgl.js` | Three.js: porta 3D dell'intro + galleria a distorsione liquida (un solo renderer) |
 | `assets/vendor/` | three, gsap, ScrollTrigger, lenis (self-hosted) |
+| `assets/vendor/addons/` | Addon three.js per il post-processing: EffectComposer, UnrealBloomPass, OutputPass |
 | `assets/fonts/` | Inter variabile self-hosted (stile Apple/SF Pro) |
 | `assets/img/` | `logo.png` (ufficiale), `hero.jpg`, poster scene, `portfolio-1..7.jpg` |
 | `assets/frames/` | Sequenze WebP delle scene (cantiere, porta, living, cucina, bagno) + varianti mobile in `m/` + `manifest.json` |
@@ -55,6 +57,14 @@ npx http-server -p 8000        # dalla root del progetto
   tecnica delle pagine prodotto Apple. Scrub fluido anche all'indietro, primo fotogramma
   come poster (mai canvas nero), variante 720p sotto i 768 px, precaricamento a ~1 viewport
   di distanza, con `prefers-reduced-motion` si mostra il fotogramma finale statico.
+- **"Il metodo" — cantiere 3D real-time** (`metodo3d.js`): scena Three.js in cui la casa
+  si assembla pezzo per pezzo (platea → murature → serramenti → impianti → copertura → luce)
+  mentre la camera le orbita attorno e si avvicina, tutto controllato dallo scroll. Camera
+  fly-through, oggetti che entrano in posa, luce interna che si accende, cono volumetrico e
+  post-processing con bloom (`EffectComposer` + `UnrealBloomPass` + tone mapping ACES). Il
+  modulo pesante si carica solo a ~1 viewport di distanza e ridisegna solo quando la sezione
+  è in vista. Su mobile: bloom off, buffer a 720p, ridisegno solo sullo scroll. Senza WebGL
+  o con `prefers-reduced-motion` diventa un elenco statico dei tre passi (casa finita ferma).
 - **Lenis** smooth scroll ovunque (disattivato con `prefers-reduced-motion`).
 - **GSAP + ScrollTrigger**: titoli rivelati riga per riga con maschere, parallax multi-velocità,
   pannelli servizi impilati (sticky), clip-path sulla sezione chiara, colore di fondo che

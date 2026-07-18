@@ -22,8 +22,7 @@
   <meta name="twitter:card" content="summary_large_image">
 
   <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
-  <link rel="preload" href="assets/fonts/bodoni-var.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="assets/fonts/jost-var.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="assets/css/main.css">
 
   <script type="application/ld+json">
@@ -79,6 +78,7 @@
     </a>
     <nav class="site-head__nav" aria-label="Navigazione principale">
       <a href="#servizi" data-nav>Servizi</a>
+      <a href="#metodo" data-nav>Metodo</a>
       <a href="#portfolio" data-nav>Portfolio</a>
       <a href="#recensioni" data-nav>Recensioni</a>
       <a href="#contatti" data-nav>Contatti</a>
@@ -96,9 +96,10 @@
   <div class="menu" id="menu" hidden>
     <nav class="menu__nav" aria-label="Menu">
       <a href="#servizi"><em>01</em>Servizi</a>
-      <a href="#portfolio"><em>02</em>Portfolio</a>
-      <a href="#recensioni"><em>03</em>Recensioni</a>
-      <a href="#contatti"><em>04</em>Contatti</a>
+      <a href="#metodo"><em>02</em>Metodo</a>
+      <a href="#portfolio"><em>03</em>Portfolio</a>
+      <a href="#recensioni"><em>04</em>Recensioni</a>
+      <a href="#contatti"><em>05</em>Contatti</a>
     </nav>
     <div class="menu__foot">
       <a href="tel:+393297003558">329 700 3558</a>
@@ -247,6 +248,38 @@
           <a class="link-arrow magnetic" href="#contatti" data-fade>Parliamone</a>
         </div>
       </article>
+    </section>
+
+    <!-- ============ METODO: cantiere 3D real-time guidato dallo scroll ============ -->
+    <section class="metodo" id="metodo" aria-labelledby="metodo-title" data-metodo>
+      <div class="metodo__stage">
+        <canvas class="metodo__canvas" id="metodo-canvas" aria-hidden="true"></canvas>
+        <div class="metodo__head">
+          <p class="metodo__kicker">Il metodo</p>
+          <h2 class="metodo__title" id="metodo-title" data-lines>Come costruiamo<br><em>una casa.</em></h2>
+        </div>
+        <ol class="metodo__steps">
+          <li class="metodo__step" data-step="0">
+            <span class="metodo__num" aria-hidden="true">01</span>
+            <h3>Demolizione e grezzo</h3>
+            <p>Si mette a nudo la struttura: platea, murature portanti, aperture.
+              È qui che si decide la qualità di tutto il resto.</p>
+          </li>
+          <li class="metodo__step" data-step="1">
+            <span class="metodo__num" aria-hidden="true">02</span>
+            <h3>Strutture e impianti</h3>
+            <p>Serramenti, copertura, linee elettriche e idrauliche tracciate
+              prima di chiudere: ogni impianto certificato.</p>
+          </li>
+          <li class="metodo__step" data-step="2">
+            <span class="metodo__num" aria-hidden="true">03</span>
+            <h3>Finiture e luce</h3>
+            <p>Cartongessi, pavimenti, tinteggiature, illuminazione.
+              La casa si accende: pronta da vivere.</p>
+          </li>
+        </ol>
+        <span class="metodo__progress" aria-hidden="true"><i id="metodo-progress"></i></span>
+      </div>
     </section>
 
     <!-- ============ PORTFOLIO ============ -->
@@ -431,9 +464,16 @@
   </div>
 
   <!-- Cursore custom (solo desktop) -->
+  <div class="film" aria-hidden="true"></div>
   <div class="cursor" id="cursor" aria-hidden="true"></div>
   <div class="cursor-ring" id="cursor-ring" aria-hidden="true"><span id="cursor-label"></span></div>
 
+  <script type="importmap">
+    { "imports": {
+      "three": "./assets/vendor/three.module.min.js",
+      "three/addons/": "./assets/vendor/addons/"
+    } }
+  </script>
   <script src="assets/vendor/gsap.min.js" defer></script>
   <script src="assets/vendor/ScrollTrigger.min.js" defer></script>
   <script src="assets/vendor/lenis.min.js" defer></script>
