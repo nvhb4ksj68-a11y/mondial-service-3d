@@ -3,6 +3,8 @@
    reveal con maschere riga per riga, parallax multi-velocità, cursore custom,
    magnetic buttons, galleria WebGL a distorsione liquida (con fallback). */
 
+import { ScrubScene, lazyStart } from './scrub.js';
+
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
@@ -15,18 +17,6 @@ const supportsWebGL = (() => {
 
 if (reducedMotion) document.body.classList.add('no-motion');
 
-// Hero video-first: con "riduci movimento" resta il poster fermo
-const heroVideo = document.getElementById('hero-video');
-if (heroVideo && reducedMotion) {
-  heroVideo.removeAttribute('autoplay');
-  heroVideo.pause();
-}
-// Se l'autoplay è stato negato (risparmio energetico iOS), riprova al primo tocco
-if (heroVideo && !reducedMotion) {
-  const resume = () => { if (heroVideo.paused) heroVideo.play().catch(() => {}); };
-  window.addEventListener('pointerdown', resume, { once: true, passive: true });
-  window.addEventListener('touchstart', resume, { once: true, passive: true });
-}
 
 let webglMod = null;
 async function getWebgl() {
@@ -178,11 +168,11 @@ function endIntro(onAfter) {
 }
 
 async function runIntro() {
-  // L'intro della porta parte a ogni visita (salvo "riduci movimento").
-  // Per i test: ?nointro oppure sessionStorage 'ms-intro-skip' la saltano.
-  const skip = (() => {
-    try { return sessionStorage.getItem('ms-intro-skip') === '1'; } catch { return false; }
-  })() || new URLSearchParams(location.search).has('nointro');
+  // L'intro va mostrata una sola volta per sessione (framework, Fase 4).
+  const seen = (() => {
+    try { return sessionStorage.getItem('ms-intro-seen') === '1'; } catch { return false; }
+  })();
+  const skip = seen || new URLSearchParams(location.search).has('nointro');
 
   if (skip || reducedMotion) {
     intro.classList.add('intro--off');
@@ -423,24 +413,24 @@ function revealHero() {
 }
 
 /* ============================== HERO SCRUB ============================== */
-/* Da fermo il walkthrough scorre da solo (autoplay); appena scorri, la
-   camera passa al dito: lo scroll guida il tempo del video e i testi
-   scivolano via a velocità diverse. Nessuna dipendenza dall'autoplay. */
+/* Sequenza di fotogrammi su canvas (stile Apple): a riposo la scena avanza
+   da sola; appena scorri, lo scroll diventa l'unica fonte di verità. */
 
 function initHeroScrub() {
-  if (reducedMotion || !heroVideo) {
+  const heroCanvas = document.getElementById('hero-canvas');
+  if (!heroCanvas) { document.body.classList.add('no-scrub'); return; }
+
+  if (reducedMotion) {
     document.body.classList.add('no-scrub');
+    new ScrubScene(heroCanvas, 'assets/frames/cantiere/manifest.json', { reducedMotion: true }).start();
     return;
   }
+
   const hero = document.querySelector('.hero');
   const bar = document.getElementById('hero-progress');
-  let target = 0;
-  let scrubbing = false;
-  let duration = 0;
-  const ready = () => { duration = heroVideo.duration || 0; };
-  if (heroVideo.readyState >= 1) ready();
-  heroVideo.addEventListener('loadedmetadata', ready);
-  heroVideo.addEventListener('durationchange', ready);
+  const scene = new ScrubScene(heroCanvas, 'assets/frames/cantiere/manifest.json',
+    { idlePlay: true, idleFps: 8 });
+  scene.start(); // l'hero è subito in vista: parte ora
 
   // I livelli del testo scivolano via a velocità diverse (parallax multi-strato)
   document.querySelectorAll('[data-hero-layer]').forEach((el) => {
@@ -452,6 +442,7 @@ function initHeroScrub() {
       scrollTrigger: { trigger: hero, start: 'top top', end: '55% bottom', scrub: true },
     });
   });
+
   // L'hero esce sfumando a nero, agganciandosi al velo del primo capitolo
   gsap.fromTo('.hero__fade', { opacity: 0 }, {
     opacity: 1,
@@ -471,27 +462,10 @@ function initHeroScrub() {
     end: 'bottom bottom',
     scrub: true,
     onUpdate: (self) => {
-      target = self.progress;
-      scrubbing = self.progress > 0.004;
+      scene.setProgress(self.progress);
       if (bar) bar.style.transform = `scaleX(${self.progress.toFixed(3)})`;
     },
   });
-
-  function tick() {
-    requestAnimationFrame(tick);
-    if (!duration) return;
-    if (!scrubbing) {
-      // In cima: il video torna a scorrere da solo
-      if (heroVideo.paused && !document.hidden) heroVideo.play().catch(() => {});
-      return;
-    }
-    if (!heroVideo.paused) heroVideo.pause();
-    if (heroVideo.seeking) return;
-    const t = target * Math.max(duration - 0.08, 0);
-    if (Math.abs(t - heroVideo.currentTime) < 0.033) return;
-    try { heroVideo.currentTime = t; } catch { /* metadata in arrivo */ }
-  }
-  requestAnimationFrame(tick);
 }
 
 /* ============================== CURSORE + MAGNETIC ============================== */
@@ -549,50 +523,31 @@ async function initLiquid() {
 }
 
 /* ============================== CAPITOLI SCROLL-SCRUB ============================== */
-/* Lo scroll guida il tempo del video: il target segue ScrollTrigger, un rAF
-   ammorbidisce i seek (mai più di ~30/s) così il video resta fluido anche
-   su mobile. I file sono ricodificati con keyframe fitti apposta. */
+/* Ogni capitolo è una sequenza di fotogrammi su canvas. I testi vivono in
+   finestre di progresso (0-0.15 ingresso, 0.15-0.85 stabile, 0.85-1 uscita)
+   mappate sullo stesso progress del canvas: un'unica fonte di verità. */
 
 function initChapters() {
   const chapters = [...document.querySelectorAll('[data-chapter]')];
   if (!chapters.length) return;
 
-  // Senza motion (o senza dati video) i capitoli restano poster statici
-  const scrubOk = !reducedMotion;
-  if (!scrubOk) {
+  if (reducedMotion) {
     document.body.classList.add('no-scrub');
+    chapters.forEach((chapter) => {
+      const canvas = chapter.querySelector('.chapter__canvas');
+      if (!canvas) return;
+      new ScrubScene(canvas, `assets/frames/${canvas.dataset.scene}/manifest.json`,
+        { reducedMotion: true }).start();
+    });
     return;
   }
 
   chapters.forEach((chapter) => {
-    const video = chapter.querySelector('.chapter__video');
+    const canvas = chapter.querySelector('.chapter__canvas');
+    if (!canvas) return;
     const bar = chapter.querySelector('.chapter__progress i');
-    let target = 0;
-    let duration = 0;
-    let failed = false;
-
-    // L'errore di una <source> non risale al <video>: si ascolta l'ultima
-    const lastSource = video.querySelector('source:last-of-type');
-    (lastSource || video).addEventListener('error', () => {
-      failed = true;
-      chapter.classList.add('chapter--novideo');
-    }, { once: true });
-
-    const ready = () => { duration = video.duration || 0; };
-    if (video.readyState >= 1) ready();
-    video.addEventListener('loadedmetadata', ready);
-    video.addEventListener('durationchange', ready);
-
-    // Se la selezione della sorgente si è arenata (es. primo codec rifiutato),
-    // un load() esplicito la riavvia; parte poco prima che il capitolo entri in vista.
-    ScrollTrigger.create({
-      trigger: chapter,
-      start: 'top 130%',
-      once: true,
-      onEnter: () => {
-        if (video.readyState === 0) { try { video.load(); } catch { /* ok */ } }
-      },
-    });
+    const scene = new ScrubScene(canvas, `assets/frames/${canvas.dataset.scene}/manifest.json`);
+    lazyStart(scene, chapter); // precarica a ~1 viewport di distanza
 
     ScrollTrigger.create({
       trigger: chapter,
@@ -600,12 +555,12 @@ function initChapters() {
       end: 'bottom bottom',
       scrub: true,
       onUpdate: (self) => {
-        target = self.progress;
+        scene.setProgress(self.progress);
         if (bar) bar.style.transform = `scaleY(${self.progress.toFixed(3)})`;
       },
     });
 
-    // Reveal del titolo alla prima entrata (il resto lo fa il video)
+    // Reveal a maschera del titolo alla prima entrata
     const title = chapter.querySelector('[data-lines]');
     ScrollTrigger.create({
       trigger: chapter,
@@ -614,16 +569,16 @@ function initChapters() {
       onEnter: () => revealLines(title),
     });
 
-    // La copy respira con lo scrub: entra, resta, esce (stile pagine prodotto)
+    // Finestra della copy: entra 0-0.15, stabile, esce 0.85-1
     const copy = chapter.querySelector('.chapter__copy');
     gsap.timeline({
       scrollTrigger: { trigger: chapter, start: 'top top', end: 'bottom bottom', scrub: true },
       defaults: { ease: 'none' },
     })
-      .fromTo(copy, { autoAlpha: 0, y: 46 }, { autoAlpha: 1, y: 0, duration: 0.12 }, 0.02)
-      .to(copy, { autoAlpha: 0, y: -30, duration: 0.12 }, 0.86);
+      .fromTo(copy, { autoAlpha: 0, y: 46 }, { autoAlpha: 1, y: 0, duration: 0.15 }, 0)
+      .to(copy, { autoAlpha: 0, y: -30, duration: 0.15 }, 0.85);
 
-    // Ponte di buio tra le scene: si entra dal nero e si esce sfumando a nero
+    // Ponte di buio tra le scene
     const fade = chapter.querySelector('.chapter__fade');
     if (fade) {
       gsap.timeline({
@@ -634,7 +589,7 @@ function initChapters() {
         .to(fade, { opacity: 1, duration: 0.07 }, 0.93);
     }
 
-    // La scheda-ambiente arriva quando sei "dentro" la stanza e resta fino all'uscita
+    // La scheda-ambiente arriva quando sei "dentro" la stanza
     const card = chapter.querySelector('.chapter__card');
     if (card) {
       gsap.timeline({
@@ -644,17 +599,6 @@ function initChapters() {
         .fromTo(card, { autoAlpha: 0, y: 34 }, { autoAlpha: 1, y: 0, duration: 0.1 }, 0.3)
         .to(card, { autoAlpha: 0, y: -20, duration: 0.1 }, 0.82);
     }
-
-    function tick() {
-      requestAnimationFrame(tick);
-      if (failed || !duration || video.seeking) return; // un seek alla volta
-      const t = target * Math.max(duration - 0.08, 0);
-      // La verità è la posizione reale del video: se qualcosa lo resetta
-      // (es. un load() di recupero), al giro dopo si riallinea da solo.
-      if (Math.abs(t - video.currentTime) < 0.033) return;
-      try { video.currentTime = t; } catch { /* metadata non pronti */ }
-    }
-    requestAnimationFrame(tick);
   });
 }
 

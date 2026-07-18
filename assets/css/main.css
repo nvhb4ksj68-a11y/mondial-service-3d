@@ -658,12 +658,14 @@ a { color: inherit; }
 }
 .no-motion .chapter__stage, .no-scrub .chapter__stage { position: relative; height: 100svh; }
 
-.chapter__video {
+.chapter__canvas, .hero__canvas {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  display: block;
+  background-size: cover;
+  background-position: center;
   filter: brightness(0.88) saturate(0.92) sepia(0.08) contrast(1.04);
 }
 .chapter__shade {
