@@ -193,7 +193,7 @@ async function runIntro() {
   return new Promise((resolve) => {
     const finish = () => endIntro(resolve);
     document.getElementById('intro-skip').addEventListener('click', finish);
-    window.setTimeout(finish, 9500); // l'intro non blocca mai la pagina
+    window.setTimeout(finish, 6500); // l'intro non blocca mai la pagina
 
     (async () => {
       const doorFallback = async () => {
@@ -452,6 +452,13 @@ function initHeroScrub() {
       scrollTrigger: { trigger: hero, start: 'top top', end: '55% bottom', scrub: true },
     });
   });
+  // L'hero esce sfumando a nero, agganciandosi al velo del primo capitolo
+  gsap.fromTo('.hero__fade', { opacity: 0 }, {
+    opacity: 1,
+    ease: 'none',
+    scrollTrigger: { trigger: hero, start: '92% bottom', end: 'bottom bottom', scrub: true },
+  });
+
   gsap.to('.hero__watermark', {
     autoAlpha: 0,
     ease: 'none',
@@ -615,6 +622,17 @@ function initChapters() {
     })
       .fromTo(copy, { autoAlpha: 0, y: 46 }, { autoAlpha: 1, y: 0, duration: 0.12 }, 0.02)
       .to(copy, { autoAlpha: 0, y: -30, duration: 0.12 }, 0.86);
+
+    // Ponte di buio tra le scene: si entra dal nero e si esce sfumando a nero
+    const fade = chapter.querySelector('.chapter__fade');
+    if (fade) {
+      gsap.timeline({
+        scrollTrigger: { trigger: chapter, start: 'top top', end: 'bottom bottom', scrub: true },
+        defaults: { ease: 'none' },
+      })
+        .fromTo(fade, { opacity: 1 }, { opacity: 0, duration: 0.07 }, 0)
+        .to(fade, { opacity: 1, duration: 0.07 }, 0.93);
+    }
 
     // La scheda-ambiente arriva quando sei "dentro" la stanza e resta fino all'uscita
     const card = chapter.querySelector('.chapter__card');

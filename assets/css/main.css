@@ -635,8 +635,17 @@ a { color: inherit; }
    Ogni capitolo è alto ~260vh: il palco resta fisso (sticky) mentre lo
    scroll fa avanzare il tempo del video, fotogramma per fotogramma.
    ========================================================================== */
-.chapter { height: 260vh; }
+.chapter { height: 320vh; }
 .no-motion .chapter, .no-scrub .chapter { height: auto; }
+
+.chapter__fade, .hero__fade {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: var(--ink-990);
+  opacity: 0;
+  pointer-events: none;
+}
 
 .chapter__stage {
   position: sticky;
