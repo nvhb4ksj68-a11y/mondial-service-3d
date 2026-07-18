@@ -443,11 +443,12 @@ function initHeroScrub() {
     });
   });
 
-  // L'hero esce sfumando a nero, agganciandosi al velo del primo capitolo
+  // L'hero cede il passo al primo capitolo con una lieve attenuazione,
+  // non un nero pieno: le scene si fondono senza stacco
   gsap.fromTo('.hero__fade', { opacity: 0 }, {
-    opacity: 1,
+    opacity: 0.4,
     ease: 'none',
-    scrollTrigger: { trigger: hero, start: '92% bottom', end: 'bottom bottom', scrub: true },
+    scrollTrigger: { trigger: hero, start: '94% bottom', end: 'bottom bottom', scrub: true },
   });
 
   // Uscendo dall'hero la camera "entra" nella scena successiva
@@ -593,15 +594,16 @@ function initChapters() {
       .fromTo(canvas, { scale: 1.14 }, { scale: 1, duration: 0.16 }, 0)
       .to(canvas, { scale: 1.16, duration: 0.14 }, 0.86);
 
-    // Ponte di buio tra le scene
+    // Passaggio morbido tra le scene: una lieve attenuazione ai bordi
+    // (non il nero pieno), così un capitolo si fonde nel successivo
     const fade = chapter.querySelector('.chapter__fade');
     if (fade) {
       gsap.timeline({
         scrollTrigger: { trigger: chapter, start: 'top top', end: 'bottom bottom', scrub: true },
         defaults: { ease: 'none' },
       })
-        .fromTo(fade, { opacity: 1 }, { opacity: 0, duration: 0.07 }, 0)
-        .to(fade, { opacity: 1, duration: 0.07 }, 0.93);
+        .fromTo(fade, { opacity: 0.4 }, { opacity: 0, duration: 0.12 }, 0)
+        .to(fade, { opacity: 0.4, duration: 0.12 }, 0.88);
     }
 
     // La scheda-ambiente arriva quando sei "dentro" la stanza
