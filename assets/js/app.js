@@ -616,6 +616,17 @@ function initChapters() {
       .fromTo(copy, { autoAlpha: 0, y: 46 }, { autoAlpha: 1, y: 0, duration: 0.12 }, 0.02)
       .to(copy, { autoAlpha: 0, y: -30, duration: 0.12 }, 0.86);
 
+    // La scheda-ambiente arriva quando sei "dentro" la stanza e resta fino all'uscita
+    const card = chapter.querySelector('.chapter__card');
+    if (card) {
+      gsap.timeline({
+        scrollTrigger: { trigger: chapter, start: 'top top', end: 'bottom bottom', scrub: true },
+        defaults: { ease: 'none' },
+      })
+        .fromTo(card, { autoAlpha: 0, y: 34 }, { autoAlpha: 1, y: 0, duration: 0.1 }, 0.3)
+        .to(card, { autoAlpha: 0, y: -20, duration: 0.1 }, 0.82);
+    }
+
     function tick() {
       requestAnimationFrame(tick);
       if (failed || !duration || video.seeking) return; // un seek alla volta
